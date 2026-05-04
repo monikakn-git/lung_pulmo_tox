@@ -7,14 +7,16 @@ from feature_engineering import get_features_for_smiles
 
 # Global variables for caching
 MODEL = None
+ALL_MODELS = None
 SCALER = None
 REFERENCE_DATA = None
 
 def load_artifacts():
-    global MODEL, SCALER, REFERENCE_DATA
+    global MODEL, ALL_MODELS, SCALER, REFERENCE_DATA
     if MODEL is None:
         try:
             MODEL = joblib.load("model.joblib")
+            ALL_MODELS = joblib.load("all_models.joblib")
             SCALER = joblib.load("scaler.joblib")
             REFERENCE_DATA = joblib.load("reference_data.joblib")
         except FileNotFoundError:
@@ -81,4 +83,63 @@ def predict_toxicity(smiles):
         "max_similarity": similarity,
         "features": X_input,
         "model_name": REFERENCE_DATA.get("model_name", "Unknown")
+    }
+
+def predict_all_models(smiles):
+    """
+    Get predictions from all trained models for comparison.
+    """
+    if not load_artifacts():
+        return {}
+        
+    features = get_features_for_smiles(smiles)
+    if features is None:
+        return {}
+        
+    X_input_raw = pd.DataFrame([features])
+    X_scaled = SCALER.transform(X_input_raw)
+    X_input = pd.DataFrame(X_scaled, columns=X_input_raw.columns)
+    
+    results = {}
+    for name, model in ALL_MODELS.items():
+        prob = float(model.predict_proba(X_input)[0, 1])
+        results[name] = prob
+    
+    # NEW: Complexity Boost - Tanimoto Similarity Search
+    # Find nearest neighbor in training set
+    from rdkit import DataStructs
+    from feature_engineering import get_morgan_fingerprint
+    
+    query_fp = get_morgan_fingerprint(smiles)
+    train_smiles = REFERENCE_DATA['smiles_train']
+    train_labels = REFERENCE_DATA['y_train']
+    
+    max_sim = 0
+    nearest_idx = -1
+    
+    for i, ts in enumerate(train_smiles):
+        tfp = get_morgan_fingerprint(ts)
+        if tfp:
+            sim = DataStructs.TanimotoSimilarity(query_fp, tfp)
+            if sim > max_sim:
+                max_sim = sim
+                nearest_idx = i
+    
+    nearest_drug = "Unknown"
+    nearest_label = "Unknown"
+    if nearest_idx != -1:
+        # Cross reference with data.csv to get the name
+        df = pd.read_csv("data.csv")
+        match = df[df['smiles'] == train_smiles[nearest_idx]]
+        if not match.empty:
+            nearest_drug = match.iloc[0]['drug_name']
+            nearest_label = "TOXIC" if train_labels[nearest_idx] == 1 else "SAFE"
+
+    return {
+        "model_predictions": results,
+        "nearest_neighbor": {
+            "name": nearest_drug,
+            "similarity": float(max_sim),
+            "label": nearest_label
+        }
     }
