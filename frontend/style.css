@@ -1,15 +1,15 @@
 :root {
-    --bg-color: #0f172a;
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --accent-primary: #3b82f6;
-    --accent-hover: #2563eb;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --card-border: rgba(255, 255, 255, 0.1);
+    --bg-color: #030d12;
+    --text-primary: #e6f7f2;
+    --text-secondary: #8fbdb2;
+    --accent-primary: #00ffa2;
+    --accent-hover: #00d989;
+    --card-bg: rgba(6, 26, 33, 0.7);
+    --card-border: rgba(0, 255, 162, 0.15);
     
-    --risk-high: #ef4444;
-    --risk-medium: #f59e0b;
-    --risk-low: #10b981;
+    --risk-high: #ff2a5f;
+    --risk-medium: #ff9b00;
+    --risk-low: #00ffa2;
 }
 
 * {
@@ -54,7 +54,7 @@ body {
     left: -10%;
     width: 40vw;
     height: 40vw;
-    background: radial-gradient(circle, #3b82f6, #1d4ed8);
+    background: radial-gradient(circle, #00ffa2, #006642);
 }
 
 .blob-2 {
@@ -62,7 +62,7 @@ body {
     right: -10%;
     width: 30vw;
     height: 30vw;
-    background: radial-gradient(circle, #8b5cf6, #6d28d9);
+    background: radial-gradient(circle, #ff2a5f, #7a0024);
     animation-delay: -5s;
 }
 
@@ -312,7 +312,7 @@ button:disabled {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(3, 13, 18, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--card-border);
@@ -367,6 +367,46 @@ button:disabled {
     color: var(--text-secondary);
     line-height: 1.6;
     margin-left: 0.5rem;
+}
+
+.feature-list li {
+    margin-bottom: 0.4rem;
+}
+.feature-list li strong {
+    color: var(--text-primary);
+}
+
+/* Features Grid on Home Page */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.feature-item {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--card-border);
+    padding: 1.2rem;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(0, 255, 162, 0.1);
+}
+
+.feature-item h3 {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.feature-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
 }
 
 /* Adjust main container to account for fixed nav */

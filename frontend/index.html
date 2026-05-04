@@ -29,12 +29,32 @@
             <header>
                 <div class="icon">🫁</div>
                 <h1>Welcome to Tox<span class="highlight">Predict</span></h1>
-                <p>Determine the likelihood of pulmonary toxicity directly from a drug's name.</p>
+                <p>Advanced Computational Toxicology at your fingertips.</p>
             </header>
             <div class="glass-panel text-center">
-                <h2>AI-Powered Drug Safety</h2>
-                <p class="mt-4">Our model uses advanced machine learning (XGBoost) combined with molecular structure analysis to predict potential lung toxicity risks. Built for researchers and healthcare professionals to evaluate compounds efficiently.</p>
-                <button id="get-started-btn" class="mt-6" style="max-width: 200px; margin-inline: auto;">Get Started</button>
+                <h2>AI-Powered Drug Safety Screening</h2>
+                <p class="mt-4">
+                    In the modern era of pharmaceutical development, identifying adverse effects early in the drug discovery pipeline is paramount. 
+                    <strong>ToxPredict</strong> leverages state-of-the-art machine learning algorithms to evaluate the pulmonary toxicity of chemical compounds instantaneously.
+                </p>
+                <div class="features-grid mt-6">
+                    <div class="feature-item">
+                        <h3>⚡ Instant Analysis</h3>
+                        <p>Evaluate compounds in milliseconds using optimized XGBoost trees.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🔬 Molecular Precision</h3>
+                        <p>Calculates exact Morgan Fingerprints and structural heuristics.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📊 Explainable AI</h3>
+                        <p>Understand the 'why' behind every prediction with SHAP values.</p>
+                    </div>
+                </div>
+                <p class="mt-6">
+                    Designed for researchers, computational chemists, and healthcare professionals, our platform bridges the gap between complex biochemical interactions and actionable safety insights.
+                </p>
+                <button id="get-started-btn" class="mt-6" style="max-width: 200px; margin-inline: auto;">Start Analysis</button>
             </div>
         </section>
 
@@ -90,25 +110,29 @@
         <!-- About Page -->
         <section id="about-page" class="page">
             <header>
-                <h1>About the <span class="highlight">Project</span></h1>
-                <p>Understanding the science behind the prediction.</p>
+                <h1>About the <span class="highlight">Science</span></h1>
+                <p>Deep diving into computational models for drug-induced respiratory disease.</p>
             </header>
             <div class="glass-panel">
                 <div class="about-content">
-                    <h3>Methodology</h3>
-                    <p>This tool utilizes an XGBoost machine learning model trained on a curated dataset of drugs known to cause pulmonary toxicity alongside safe alternatives. It calculates the Morgan Fingerprints from the molecular SMILES strings to identify structural patterns correlated with lung toxicity.</p>
+                    <h3>The Challenge of Pulmonary Toxicity</h3>
+                    <p>Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.</p>
+
+                    <h3 class="mt-6">Our Methodology</h3>
+                    <p>ToxPredict shifts the paradigm by utilizing an <strong>XGBoost machine learning architecture</strong> trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a <strong>Morgan Fingerprint</strong>, the model can "see" the structural motifs that historically correlate with lung damage.</p>
                     
-                    <h3 class="mt-6">Features Evaluated</h3>
+                    <h3 class="mt-6">Key Physicochemical Descriptors</h3>
+                    <p>Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:</p>
                     <ul class="feature-list">
-                        <li>Molecular Weight</li>
-                        <li>LogP (Lipophilicity)</li>
-                        <li>Topological Polar Surface Area (TPSA)</li>
-                        <li>Number of Rotatable Bonds</li>
-                        <li>Hydrogen Bond Donors/Acceptors</li>
+                        <li><strong>Molecular Weight:</strong> Influences tissue penetration and accumulation rates.</li>
+                        <li><strong>LogP (Lipophilicity):</strong> High lipophilicity often correlates with deeper cellular membrane permeation.</li>
+                        <li><strong>Topological Polar Surface Area (TPSA):</strong> Helps predict transport across biological barriers.</li>
+                        <li><strong>Number of Rotatable Bonds:</strong> A measure of molecular flexibility.</li>
+                        <li><strong>Hydrogen Bond Donors/Acceptors:</strong> Crucial for understanding target binding affinity.</li>
                     </ul>
 
-                    <h3 class="mt-6">Technology Stack</h3>
-                    <p>Built using Python, FastAPI, scikit-learn, XGBoost, and SHAP for explainability, with a modern HTML/CSS/JS frontend.</p>
+                    <h3 class="mt-6">Technology Stack & Explainability</h3>
+                    <p>The backend is powered by <strong>Python, FastAPI, and RDKit</strong> for high-performance chemoinformatics. The predictive engine relies on <strong>scikit-learn and XGBoost</strong>. To avoid the "black box" problem of AI, we integrated <strong>SHAP (SHapley Additive exPlanations)</strong>, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.</p>
                 </div>
             </div>
         </section>

@@ -28,9 +28,16 @@ page = st.sidebar.radio("Go to", ["Home", "Dashboard", "About"])
 if page == "Home":
     st.title("🫁 Welcome to ToxPredict")
     st.markdown("""
-    **Determine the likelihood of pulmonary toxicity directly from a drug's name.**
+    **Advanced Computational Toxicology at your fingertips.**
     
-    Our model uses advanced machine learning (XGBoost) combined with molecular structure analysis to predict potential lung toxicity risks. Built for researchers and healthcare professionals to evaluate compounds efficiently.
+    In the modern era of pharmaceutical development, identifying adverse effects early in the drug discovery pipeline is paramount. **ToxPredict** leverages state-of-the-art machine learning algorithms to evaluate the pulmonary toxicity of chemical compounds instantaneously.
+    
+    ### Key Features
+    - ⚡ **Instant Analysis:** Evaluate compounds in milliseconds using optimized XGBoost trees.
+    - 🔬 **Molecular Precision:** Calculates exact Morgan Fingerprints and structural heuristics.
+    - 📊 **Explainable AI:** Understand the 'why' behind every prediction with SHAP values.
+    
+    Designed for researchers, computational chemists, and healthcare professionals, our platform bridges the gap between complex biochemical interactions and actionable safety insights.
     """)
     st.info("👈 Navigate to the **Dashboard** to analyze a drug.")
 
@@ -120,20 +127,24 @@ elif page == "Dashboard":
         st.warning("Please enter a valid drug name.")
 
 elif page == "About":
-    st.title("📖 About the Project")
+    st.title("📖 About the Science")
     st.markdown("""
-    ### Methodology
-    This tool utilizes an XGBoost machine learning model trained on a curated dataset of drugs known to cause pulmonary toxicity alongside safe alternatives. It calculates the Morgan Fingerprints from the molecular SMILES strings to identify structural patterns correlated with lung toxicity.
+    ### The Challenge of Pulmonary Toxicity
+    Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.
 
-    ### Features Evaluated
-    - Molecular Weight
-    - LogP (Lipophilicity)
-    - Topological Polar Surface Area (TPSA)
-    - Number of Rotatable Bonds
-    - Hydrogen Bond Donors/Acceptors
+    ### Our Methodology
+    ToxPredict shifts the paradigm by utilizing an **XGBoost machine learning architecture** trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a **Morgan Fingerprint**, the model can "see" the structural motifs that historically correlate with lung damage.
 
-    ### Technology Stack
-    Built using Python, FastAPI, scikit-learn, XGBoost, Streamlit, and SHAP for explainability.
+    ### Key Physicochemical Descriptors
+    Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:
+    - **Molecular Weight:** Influences tissue penetration and accumulation rates.
+    - **LogP (Lipophilicity):** High lipophilicity often correlates with deeper cellular membrane permeation.
+    - **Topological Polar Surface Area (TPSA):** Helps predict transport across biological barriers.
+    - **Number of Rotatable Bonds:** A measure of molecular flexibility.
+    - **Hydrogen Bond Donors/Acceptors:** Crucial for understanding target binding affinity.
+
+    ### Technology Stack & Explainability
+    The backend is powered by **Python, FastAPI, and RDKit** for high-performance chemoinformatics. The predictive engine relies on **scikit-learn and XGBoost**. To avoid the "black box" problem of AI, we integrated **SHAP (SHapley Additive exPlanations)**, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.
     """)
 
 st.sidebar.markdown("---")
