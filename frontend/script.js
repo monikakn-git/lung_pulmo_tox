@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById(targetId)?.classList.add('active');
     }
 
+    // Attach to window for button clicks
+    window.switchPage = switchPage;
+
+    window.fillExample = (drugName) => {
+        const drugInput = document.getElementById("drug-input");
+        drugInput.value = drugName;
+        // Trigger the search automatically
+        document.getElementById("predict-form").requestSubmit();
+    };
+
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -111,8 +121,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         const probPct = (prob * 100).toFixed(1);
                         const item = document.createElement('div');
                         item.className = 'model-item';
+                        // Add label clarity
+                        const labelType = name === "StackingEnsemble" ? "(Combined)" : "(Individual)";
                         item.innerHTML = `
-                            <span class="model-name">${name}</span>
+                            <div class="model-meta">
+                                <span class="model-name">${name}</span>
+                                <span class="model-tag">${labelType}</span>
+                            </div>
                             <div class="model-prob-bar">
                                 <div class="prob-fill" style="width: ${probPct}%"></div>
                             </div>
@@ -122,23 +137,46 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
             }
 
-            // Populate SHAP Chart
+            // Bit-to-Feature Mapping (Human Readable complexity boost)
+            const featureMap = {
+                'bit_1047': 'Aromatic ring system',
+                'bit_695': 'Ester/Carbonyl group',
+                'bit_1057': 'Nitrogenous heterocycle',
+                'bit_1024': 'Sulfonamide motif',
+                'bit_234': 'Halogenated substituent',
+                'MolWt': 'Molecular Weight',
+                'LogP': 'Lipophilicity',
+                'NumRings': 'Ring count'
+            };
+
+            // Populate SHAP Chart (Bi-directional)
             shapChart.innerHTML = '';
             if (data.shap_values) {
-                // Find max abs value for normalization
                 const maxAbs = Math.max(...data.shap_values.map(v => Math.abs(v.value)));
                 
                 data.shap_values.forEach(item => {
-                    const width = (Math.abs(item.value) / maxAbs * 100).toFixed(0);
-                    const colorClass = item.value > 0 ? 'pos-bar' : 'neg-bar';
+                    const width = (Math.abs(item.value) / maxAbs * 50).toFixed(0); // 50% max each side
+                    const isPositive = item.value > 0;
+                    const colorClass = isPositive ? 'pos-bar' : 'neg-bar';
+                    const featureName = featureMap[item.feature] || item.feature;
+                    
                     const row = document.createElement('div');
                     row.className = 'shap-row';
+                    
+                    // Flex container for the bar to handle center axis
+                    const barContainerStyle = isPositive ? 'justify-content: flex-start;' : 'justify-content: flex-end;';
+                    
                     row.innerHTML = `
-                        <div class="shap-label">${item.feature}</div>
-                        <div class="shap-bar-bg">
-                            <div class="shap-bar-fill ${colorClass}" style="width: ${width}%"></div>
+                        <div class="shap-label">${featureName}</div>
+                        <div class="shap-bar-bg" style="display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 0;">
+                            <div class="shap-side neg-side" style="display: flex; justify-content: flex-end; border-right: 2px solid rgba(255,255,255,0.2);">
+                                ${!isPositive ? `<div class="shap-bar-fill neg-bar" style="width: ${width * 2}%"></div>` : ''}
+                            </div>
+                            <div class="shap-side pos-side" style="display: flex; justify-content: flex-start;">
+                                ${isPositive ? `<div class="shap-bar-fill pos-bar" style="width: ${width * 2}%"></div>` : ''}
+                            </div>
                         </div>
-                        <div class="shap-val">${item.value.toFixed(3)}</div>
+                        <div class="shap-val" style="color: ${isPositive ? 'var(--risk-high)' : 'var(--accent-primary)'}">${item.value.toFixed(3)}</div>
                     `;
                     shapChart.appendChild(row);
                 });

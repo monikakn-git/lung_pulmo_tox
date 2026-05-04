@@ -1054,3 +1054,64 @@ input:focus {
     background: rgba(255,255,255,0.1);
 }
 
+
+/* Example Chips */
+.example-chips {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.05);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chip:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+
+/* Bi-directional SHAP Chart */
+.shap-row {
+    grid-template-columns: 180px 1fr 60px;
+}
+
+.shap-bar-bg {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-left: 2px solid rgba(255,255,255,0.1);
+    overflow: visible;
+}
+
+.shap-bar-fill {
+    transition: width 0.8s ease-out;
+    position: relative;
+}
+
+.shap-bar-fill.neg-bar {
+    margin-left: auto;
+    border-radius: 6px 0 0 6px;
+    background: var(--accent-primary);
+}
+
+.shap-bar-fill.pos-bar {
+    margin-right: auto;
+    border-radius: 0 6px 6px 0;
+    background: var(--risk-high);
+}
+
+.shap-center-line {
+    width: 2px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    z-index: 2;
+}
+

@@ -42,6 +42,12 @@
                 <div class="abstract-graphic">
                     <div class="glass-orb"></div>
                     <div class="glass-orb orb-small"></div>
+                    <div class="code-snippet">
+                        <code># Full Feature Pipeline</code><br>
+                        <code>fp = morgan_fp(smiles, radius=2, nBits=2048)</code><br>
+                        <code># Stacking Ensemble Prediction</code><br>
+                        <code>prob = ensemble.predict_proba([fp])[0][1]</code>
+                    </div>
                 </div>
             </div>
         </section>
@@ -124,6 +130,15 @@
                     </button>
                 </form>
                 <div id="error-message" class="error-message hidden"></div>
+                
+                <div class="quick-examples mt-6">
+                    <p class="helper-text mb-2">Try these examples:</p>
+                    <div class="example-chips">
+                        <button class="chip chip-high" onclick="fillExample('Amiodarone')">🔴 Amiodarone (High Risk)</button>
+                        <button class="chip chip-med" onclick="fillExample('Methotrexate')">🟡 Methotrexate (Med Risk)</button>
+                        <button class="chip chip-low" onclick="fillExample('Aspirin')">🟢 Aspirin (Low Risk)</button>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -157,7 +172,7 @@
                                     <div id="res-prob-value" class="mid-value">--</div>
                                 </div>
                                 <div class="sub-metric">
-                                    <label>Confidence</label>
+                                    <label>Structural Match</label>
                                     <div id="res-conf-value" class="mid-value">--</div>
                                 </div>
                             </div>
@@ -233,28 +248,34 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Random Forest</td>
-                                <td>0.89</td>
-                                <td>0.86</td>
-                                <td>0.85</td>
+                                <td>Stacking Ensemble</td>
+                                <td>0.72</td>
+                                <td>0.80</td>
+                                <td>0.78</td>
                             </tr>
                             <tr>
-                                <td>XGBoost</td>
-                                <td>0.87</td>
-                                <td>0.85</td>
-                                <td>0.83</td>
+                                <td>Random Forest</td>
+                                <td>0.84</td>
+                                <td>0.70</td>
+                                <td>0.68</td>
                             </tr>
                             <tr>
                                 <td>Extra Trees</td>
-                                <td>0.88</td>
-                                <td>0.85</td>
                                 <td>0.84</td>
+                                <td>0.70</td>
+                                <td>0.69</td>
+                            </tr>
+                            <tr>
+                                <td>XGBoost</td>
+                                <td>0.76</td>
+                                <td>0.80</td>
+                                <td>0.76</td>
                             </tr>
                             <tr>
                                 <td>Neural Network</td>
-                                <td>0.82</td>
-                                <td>0.79</td>
-                                <td>0.78</td>
+                                <td>0.72</td>
+                                <td>0.60</td>
+                                <td>0.58</td>
                             </tr>
                         </tbody>
                     </table>
