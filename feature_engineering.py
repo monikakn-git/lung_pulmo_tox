@@ -1,7 +1,12 @@
 import pandas as pd
 import numpy as np
 from rdkit import Chem
-from rdkit.Chem import AllChem, Descriptors
+from rdkit.Chem import AllChem, Descriptors, DataStructs
+
+def get_morgan_fingerprint(smiles, radius=2, nBits=2048):
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None: return None
+    return AllChem.GetMorganFingerprintAsBitVect(mol, radius, nBits=nBits)
 
 def get_features_for_smiles(smiles, radius=2, nBits=2048):
     """
