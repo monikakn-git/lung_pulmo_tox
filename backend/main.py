@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
-from predict import predict_toxicity
+from predict import predict_toxicity, predict_all_models
 from explain import explain_prediction
 from rdkit import Chem
 from rdkit.Chem import Draw
@@ -37,6 +37,7 @@ class PredictResponse(BaseModel):
     confidence_score: float
     explanation: str
     image_base64: str
+    all_models: dict
 
 @app.post("/api/predict", response_model=PredictResponse)
 def predict_endpoint(request: PredictRequest):
@@ -71,6 +72,9 @@ def predict_endpoint(request: PredictRequest):
             img.save(buffered, format="PNG")
             img_base64 = base64.b64encode(buffered.getvalue()).decode()
             
+        # Get all model predictions
+        all_model_results = predict_all_models(smiles)
+            
         return PredictResponse(
             drug_name=actual_drug_name,
             smiles=smiles,
@@ -78,7 +82,8 @@ def predict_endpoint(request: PredictRequest):
             probability=float(result['probability']),
             confidence_score=float(result['confidence_score']),
             explanation=explanation_text,
-            image_base64=img_base64
+            image_base64=img_base64,
+            all_models=all_model_results
         )
         
     except HTTPException:

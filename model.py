@@ -134,9 +134,10 @@ def train_model():
     print("-" * 32)
     print(f"🏆 Best Model: {best_name} (AUC: {best_auc:.3f})")
     
-    # Save the best model and reference data
+    # Save the best model, all models and reference data
     print("\nSaving best model and artifacts...")
     joblib.dump(best_model, "model.joblib")
+    joblib.dump(models, "all_models.joblib")
     joblib.dump(scaler, "scaler.joblib")
     
     reference_data = {

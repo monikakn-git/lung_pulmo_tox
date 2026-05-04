@@ -131,42 +131,61 @@
                 </form>
                 <div id="error-message" class="error-message hidden"></div>
             </section>
+        </div>
+    </main>
 
-            <section id="result-section" class="result-section hidden">
-                <div class="results-header">
-                    <h2 class="section-title">Analysis Results for <span id="display-drug-name" class="highlight"></span></h2>
+    <!-- Results Page -->
+    <main id="results-page" class="page">
+        <div class="container-inner">
+            <div class="results-top-bar">
+                <button id="back-to-dash-btn" class="secondary-btn">← Back to Search</button>
+                <div class="results-title-group">
+                    <h1 class="large-title">Analysis for <span id="res-drug-name" class="highlight"></span></h1>
+                    <p class="SMILES-text" id="res-smiles">SMILES: --</p>
                 </div>
-                
-                <div class="dashboard-split">
-                    <div class="molecule-visual glass-card">
-                        <h3>Molecular Structure</h3>
-                        <img id="molecule-image" src="" alt="Molecular Structure" class="hidden">
-                        <div id="molecule-placeholder" class="placeholder-text">Generating image...</div>
-                    </div>
+            </div>
 
-                
-                <div class="cards-grid">
-                    <div class="glass-card risk-card">
-                        <h3>Risk Category</h3>
-                        <div id="risk-value" class="metric-value">--</div>
+            <div class="large-results-grid">
+                <!-- Primary Insight -->
+                <div class="primary-insight-card glass-panel">
+                    <div class="insight-split">
+                        <div class="molecule-display">
+                            <img id="res-molecule-image" src="" alt="Molecule">
+                        </div>
+                        <div class="main-metrics">
+                            <div class="big-metric">
+                                <label>Risk Category</label>
+                                <div id="res-risk-value" class="huge-value">--</div>
+                            </div>
+                            <div class="metrics-row">
+                                <div class="sub-metric">
+                                    <label>Probability</label>
+                                    <div id="res-prob-value" class="mid-value">--</div>
+                                </div>
+                                <div class="sub-metric">
+                                    <label>Confidence</label>
+                                    <div id="res-conf-value" class="mid-value">--</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass-card">
-                        <h3>Toxicity Probability</h3>
-                        <div id="prob-value" class="metric-value text-white">--</div>
-                    </div>
-                    <div class="glass-card">
-                        <h3>Confidence Score</h3>
-                        <div id="conf-value" class="metric-value text-white">--</div>
-                        <p class="helper-text">Based on structural similarity</p>
-                    </div>
-                </div>
                 </div>
 
-                <div class="explanation-panel glass-card mt-6">
-                    <h3>AI Explanation</h3>
-                    <p id="explanation-text">--</p>
+                <!-- Model Comparison -->
+                <div class="model-comparison-card glass-panel">
+                    <h3>Multi-Model Benchmark</h3>
+                    <p class="helper-text mb-4">Cross-verifying prediction across all specialized architectures.</p>
+                    <div id="models-list" class="models-stack">
+                        <!-- Populated by JS -->
+                    </div>
                 </div>
-            </section>
+
+                <!-- Deep Dive -->
+                <div class="deep-dive-card glass-panel full-width">
+                    <h3>Explainable AI Report</h3>
+                    <p id="res-explanation-text" class="large-explanation">--</p>
+                </div>
+            </div>
         </div>
     </main>
 

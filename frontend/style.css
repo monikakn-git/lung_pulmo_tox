@@ -797,3 +797,130 @@ input:focus {
     }
 }
 
+
+/* Large Results Page Styles */
+.results-top-bar {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.large-title {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.SMILES-text {
+    color: var(--text-secondary);
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.large-results-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.primary-insight-card {
+    padding: 3rem;
+}
+
+.insight-split {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.molecule-display {
+    flex: 1;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.molecule-display img {
+    max-width: 100%;
+    height: auto;
+}
+
+.main-metrics {
+    flex: 1;
+}
+
+.huge-value {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+}
+
+.mid-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.metrics-row {
+    display: flex;
+    gap: 2rem;
+}
+
+.models-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.model-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+}
+
+.model-name {
+    font-weight: 600;
+}
+
+.model-prob-bar {
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+    width: 100px;
+    margin: 0 1rem;
+    overflow: hidden;
+}
+
+.prob-fill {
+    height: 100%;
+    background: var(--accent-primary);
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.large-explanation {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-top: 1rem;
+}
+
+@media (max-width: 1100px) {
+    .large-results-grid {
+        grid-template-columns: 1fr;
+    }
+    .full-width {
+        grid-column: span 1;
+    }
+    .insight-split {
+        flex-direction: column;
+    }
+}
+

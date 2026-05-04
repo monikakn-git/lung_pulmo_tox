@@ -123,6 +123,17 @@ elif page == "Dashboard":
                 conf = result['confidence_score']
                 st.metric("Confidence Score", f"{conf:.1f}%", help="Based on molecular similarity to training data")
 
+            # Multi-Model Benchmarking Section
+            st.markdown("---")
+            st.subheader("📊 Multi-Model Benchmarking")
+            st.write("Comparing toxicity probabilities across all available architectures.")
+            
+            all_model_results = predict_all_models(smiles)
+            m_cols = st.columns(len(all_model_results))
+            for i, (name, prob) in enumerate(all_model_results.items()):
+                with m_cols[i]:
+                    st.metric(name, f"{prob:.1%}")
+
             # Explainability
             st.markdown("---")
             st.markdown("**AI Explanation:**")

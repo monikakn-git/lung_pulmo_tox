@@ -36,14 +36,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const spinner = predictBtn.querySelector(".spinner");
     const errorMessage = document.getElementById("error-message");
     
-    const resultSection = document.getElementById("result-section");
-    const displayDrugName = document.getElementById("display-drug-name");
-    const riskValue = document.getElementById("risk-value");
-    const probValue = document.getElementById("prob-value");
-    const confValue = document.getElementById("conf-value");
-    const explanationText = document.getElementById("explanation-text");
-    const moleculeImage = document.getElementById("molecule-image");
-    const moleculePlaceholder = document.getElementById("molecule-placeholder");
+    const resPage = document.getElementById("results-page");
+    const resDrugName = document.getElementById("res-drug-name");
+    const resSmiles = document.getElementById("res-smiles");
+    const resMoleculeImage = document.getElementById("res-molecule-image");
+    const resRiskValue = document.getElementById("res-risk-value");
+    const resProbValue = document.getElementById("res-prob-value");
+    const resConfValue = document.getElementById("res-conf-value");
+    const resExplanationText = document.getElementById("res-explanation-text");
+    const modelsList = document.getElementById("models-list");
+
+    document.getElementById("back-to-dash-btn")?.addEventListener("click", () => {
+        switchPage('dashboard-page');
+    });
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -56,14 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
         btnText.classList.add("hidden");
         spinner.classList.remove("hidden");
         errorMessage.classList.add("hidden");
-        resultSection.classList.add("hidden");
         
-        // Reset old classes & images
-        riskValue.className = "metric-value";
-        moleculeImage.classList.add("hidden");
-        moleculeImage.src = "";
-        moleculePlaceholder.classList.remove("hidden");
-        moleculePlaceholder.textContent = "Generating image...";
+        // Reset old classes
+        resRiskValue.className = "huge-value";
 
         try {
             // Fix 404 by hitting the correct endpoint
@@ -83,33 +83,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error(data.detail || "An error occurred while analyzing the structure.");
             }
 
-            // Populate Data
-            displayDrugName.textContent = data.drug_name;
-            riskValue.textContent = data.risk_category;
-            probValue.textContent = `${(data.probability * 100).toFixed(1)}%`;
-            confValue.textContent = `${data.confidence_score.toFixed(1)}%`;
-            explanationText.textContent = data.explanation;
+            // Populate Large Results Page
+            resDrugName.textContent = data.drug_name;
+            resSmiles.textContent = `SMILES: ${data.smiles}`;
+            resRiskValue.textContent = data.risk_category;
+            resProbValue.textContent = `${(data.probability * 100).toFixed(1)}%`;
+            resConfValue.textContent = `${data.confidence_score.toFixed(1)}%`;
+            resExplanationText.textContent = data.explanation;
 
-            // Handle Molecular Image
             if (data.image_base64) {
-                moleculeImage.src = `data:image/png;base64,${data.image_base64}`;
-                moleculeImage.classList.remove("hidden");
-                moleculePlaceholder.classList.add("hidden");
-            } else {
-                moleculePlaceholder.textContent = "Image not available";
+                resMoleculeImage.src = `data:image/png;base64,${data.image_base64}`;
+            }
+
+            // Populate Models List
+            modelsList.innerHTML = '';
+            if (data.all_models) {
+                Object.entries(data.all_models).forEach(([name, prob]) => {
+                    const probPct = (prob * 100).toFixed(1);
+                    const item = document.createElement('div');
+                    item.className = 'model-item';
+                    item.innerHTML = `
+                        <span class="model-name">${name}</span>
+                        <div class="model-prob-bar">
+                            <div class="prob-fill" style="width: ${probPct}%"></div>
+                        </div>
+                        <span class="model-val">${probPct}%</span>
+                    `;
+                    modelsList.appendChild(item);
+                });
             }
 
             // Apply risk color coding
             if (data.risk_category === "HIGH RISK") {
-                riskValue.classList.add("risk-high");
+                resRiskValue.classList.add("risk-high");
             } else if (data.risk_category === "MEDIUM RISK") {
-                riskValue.classList.add("risk-medium");
+                resRiskValue.classList.add("risk-medium");
             } else {
-                riskValue.classList.add("risk-low");
+                resRiskValue.classList.add("risk-low");
             }
 
-            // Reveal Results
-            resultSection.classList.remove("hidden");
+            // Transition to results page
+            switchPage('results-page');
 
         } catch (error) {
             errorMessage.textContent = error.message;
