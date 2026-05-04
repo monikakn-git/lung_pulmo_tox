@@ -23,55 +23,76 @@
         </ul>
     </nav>
 
-    <main class="container">
-        <!-- Home Page -->
-        <section id="home-page" class="page active">
-            <header>
-                <div class="icon">🫁</div>
-                <h1>Welcome to Tox<span class="highlight">Predict</span></h1>
-                <p>Advanced Computational Toxicology at your fingertips.</p>
-            </header>
-            <div class="glass-panel text-center">
-                <h2>AI-Powered Drug Safety Screening</h2>
-                <p class="mt-4">
-                    In the modern era of pharmaceutical development, identifying adverse effects early in the drug discovery pipeline is paramount. 
-                    <strong>ToxPredict</strong> leverages state-of-the-art machine learning algorithms to evaluate the pulmonary toxicity of chemical compounds instantaneously.
+    <!-- Home Page -->
+    <main id="home-page" class="page active">
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="icon-large">🫁</div>
+                <h1 class="hero-title">Advanced <br><span class="highlight">Computational Toxicology</span></h1>
+                <p class="hero-subtitle">
+                    In the modern era of pharmaceutical development, identifying adverse effects early is paramount. 
+                    ToxPredict leverages state-of-the-art machine learning to evaluate pulmonary toxicity instantaneously.
                 </p>
-                <div class="features-grid mt-6">
-                    <div class="feature-item">
-                        <h3>⚡ Instant Analysis</h3>
-                        <p>Evaluate compounds in milliseconds using optimized XGBoost trees.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>🔬 Molecular Precision</h3>
-                        <p>Calculates exact Morgan Fingerprints and structural heuristics.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>📊 Explainable AI</h3>
-                        <p>Understand the 'why' behind every prediction with SHAP values.</p>
+                <div class="hero-actions">
+                    <button id="get-started-btn" class="primary-btn">Start Analysis</button>
+                    <button class="secondary-btn" onclick="document.querySelector('[data-target=\'about-page\']').click()">Learn More</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="abstract-graphic">
+                    <div class="glass-orb"></div>
+                    <div class="glass-orb orb-small"></div>
+                    <div class="code-snippet">
+                        <code>import xgboost as xgb</code><br>
+                        <code>model = xgb.Booster()</code><br>
+                        <code>risk = model.predict(smiles)</code>
                     </div>
                 </div>
-                <p class="mt-6">
-                    Designed for researchers, computational chemists, and healthcare professionals, our platform bridges the gap between complex biochemical interactions and actionable safety insights.
-                </p>
-                <button id="get-started-btn" class="mt-6" style="max-width: 200px; margin-inline: auto;">Start Analysis</button>
             </div>
         </section>
 
-        <!-- Dashboard Page -->
-        <section id="dashboard-page" class="page">
-            <header>
-                <h1>Tox<span class="highlight">Predict</span> Dashboard</h1>
-                <p>Enter a drug name below to analyze its pulmonary toxicity risk.</p>
-            </header>
+        <section class="features-band">
+            <div class="container-inner">
+                <div class="features-header text-center">
+                    <h2>AI-Powered Drug Safety Screening</h2>
+                    <p>Designed for researchers, computational chemists, and healthcare professionals.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Instant Analysis</h3>
+                        <p>Evaluate compounds in milliseconds using optimized XGBoost trees.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔬</div>
+                        <h3>Molecular Precision</h3>
+                        <p>Calculates exact Morgan Fingerprints and structural heuristics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Explainable AI</h3>
+                        <p>Understand the 'why' behind every prediction with SHAP values.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
+    <!-- Dashboard Page -->
+    <main id="dashboard-page" class="page">
+        <div class="page-header text-center">
+            <h1>Tox<span class="highlight">Predict</span> Dashboard</h1>
+            <p>Enter a drug name below to analyze its pulmonary toxicity risk.</p>
+        </div>
+
+        <div class="container-inner dashboard-layout">
             <section class="input-section glass-panel">
                 <form id="predict-form">
                     <div class="input-group">
                         <label for="drug-input">Drug Name</label>
                         <input type="text" id="drug-input" placeholder="e.g. Aspirin, Gefitinib, Loratadine" required autocomplete="off">
                     </div>
-                    <button type="submit" id="predict-btn">
+                    <button type="submit" id="predict-btn" class="primary-btn w-full">
                         <span class="btn-text">Analyze Drug</span>
                         <div class="spinner hidden"></div>
                     </button>
@@ -80,19 +101,19 @@
             </section>
 
             <section id="result-section" class="result-section hidden">
-                <h2 class="section-title">Analysis Results for <span id="display-drug-name" class="highlight"></span></h2>
+                <div class="results-header">
+                    <h2 class="section-title">Analysis Results for <span id="display-drug-name" class="highlight"></span></h2>
+                </div>
                 
                 <div class="cards-grid">
                     <div class="glass-card risk-card">
                         <h3>Risk Category</h3>
                         <div id="risk-value" class="metric-value">--</div>
                     </div>
-                    
                     <div class="glass-card">
                         <h3>Toxicity Probability</h3>
                         <div id="prob-value" class="metric-value text-white">--</div>
                     </div>
-
                     <div class="glass-card">
                         <h3>Confidence Score</h3>
                         <div id="conf-value" class="metric-value text-white">--</div>
@@ -100,43 +121,53 @@
                     </div>
                 </div>
 
-                <div class="explanation-panel glass-card">
+                <div class="explanation-panel glass-card mt-6">
                     <h3>AI Explanation</h3>
                     <p id="explanation-text">--</p>
                 </div>
             </section>
-        </section>
-
-        <!-- About Page -->
-        <section id="about-page" class="page">
-            <header>
-                <h1>About the <span class="highlight">Science</span></h1>
-                <p>Deep diving into computational models for drug-induced respiratory disease.</p>
-            </header>
-            <div class="glass-panel">
-                <div class="about-content">
-                    <h3>The Challenge of Pulmonary Toxicity</h3>
-                    <p>Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.</p>
-
-                    <h3 class="mt-6">Our Methodology</h3>
-                    <p>ToxPredict shifts the paradigm by utilizing an <strong>XGBoost machine learning architecture</strong> trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a <strong>Morgan Fingerprint</strong>, the model can "see" the structural motifs that historically correlate with lung damage.</p>
-                    
-                    <h3 class="mt-6">Key Physicochemical Descriptors</h3>
-                    <p>Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:</p>
-                    <ul class="feature-list">
-                        <li><strong>Molecular Weight:</strong> Influences tissue penetration and accumulation rates.</li>
-                        <li><strong>LogP (Lipophilicity):</strong> High lipophilicity often correlates with deeper cellular membrane permeation.</li>
-                        <li><strong>Topological Polar Surface Area (TPSA):</strong> Helps predict transport across biological barriers.</li>
-                        <li><strong>Number of Rotatable Bonds:</strong> A measure of molecular flexibility.</li>
-                        <li><strong>Hydrogen Bond Donors/Acceptors:</strong> Crucial for understanding target binding affinity.</li>
-                    </ul>
-
-                    <h3 class="mt-6">Technology Stack & Explainability</h3>
-                    <p>The backend is powered by <strong>Python, FastAPI, and RDKit</strong> for high-performance chemoinformatics. The predictive engine relies on <strong>scikit-learn and XGBoost</strong>. To avoid the "black box" problem of AI, we integrated <strong>SHAP (SHapley Additive exPlanations)</strong>, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.</p>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
+
+    <!-- About Page -->
+    <main id="about-page" class="page">
+        <div class="page-header text-center">
+            <h1>About the <span class="highlight">Science</span></h1>
+            <p>Deep diving into computational models for drug-induced respiratory disease.</p>
+        </div>
+        
+        <div class="container-inner">
+            <div class="glass-panel content-rich">
+                <h3>The Challenge of Pulmonary Toxicity</h3>
+                <p>Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.</p>
+
+                <h3 class="mt-6">Our Methodology</h3>
+                <p>ToxPredict shifts the paradigm by utilizing an <strong>XGBoost machine learning architecture</strong> trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a <strong>Morgan Fingerprint</strong>, the model can "see" the structural motifs that historically correlate with lung damage.</p>
+                
+                <h3 class="mt-6">Key Physicochemical Descriptors</h3>
+                <p>Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:</p>
+                <ul class="feature-list">
+                    <li><strong>Molecular Weight:</strong> Influences tissue penetration and accumulation rates.</li>
+                    <li><strong>LogP (Lipophilicity):</strong> High lipophilicity often correlates with deeper cellular membrane permeation.</li>
+                    <li><strong>Topological Polar Surface Area (TPSA):</strong> Helps predict transport across biological barriers.</li>
+                    <li><strong>Number of Rotatable Bonds:</strong> A measure of molecular flexibility.</li>
+                    <li><strong>Hydrogen Bond Donors/Acceptors:</strong> Crucial for understanding target binding affinity.</li>
+                </ul>
+
+                <h3 class="mt-6">Technology Stack & Explainability</h3>
+                <p>The backend is powered by <strong>Python, FastAPI, and RDKit</strong> for high-performance chemoinformatics. The predictive engine relies on <strong>scikit-learn and XGBoost</strong>. To avoid the "black box" problem of AI, we integrated <strong>SHAP (SHapley Additive exPlanations)</strong>, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="global-footer">
+        <div class="container-inner">
+            <div class="footer-content">
+                <div class="footer-brand">🫁 ToxPredict</div>
+                <div class="footer-text">Built for Hackathon 2026. Powered by AI and Computational Chemistry.</div>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
