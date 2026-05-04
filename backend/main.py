@@ -4,6 +4,8 @@ import os
 # Add the parent directory to sys.path so we can import our existing modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import pubchempy as pcp
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -53,11 +55,21 @@ def predict_endpoint(request: PredictRequest):
         # Case insensitive search
         drug_match = df[df['drug_name'].str.lower() == request.drug_name.lower()]
         
-        if drug_match.empty:
-            raise HTTPException(status_code=404, detail=f"Drug '{request.drug_name}' not found in database. Try another name.")
-            
-        smiles = drug_match.iloc[0]['smiles']
-        actual_drug_name = drug_match.iloc[0]['drug_name']
+        if not drug_match.empty:
+            smiles = drug_match.iloc[0]['smiles']
+            actual_drug_name = drug_match.iloc[0]['drug_name']
+        else:
+            # Try PubChem as fallback
+            try:
+                compounds = pcp.get_compounds(request.drug_name, 'name')
+                if compounds:
+                    smiles = compounds[0].canonical_smiles
+                    actual_drug_name = request.drug_name
+                else:
+                    raise HTTPException(status_code=404, detail=f"Drug '{request.drug_name}' not found in database or PubChem.")
+            except Exception as e:
+                if isinstance(e, HTTPException): raise e
+                raise HTTPException(status_code=404, detail=f"Drug '{request.drug_name}' not found.")
 
         # Get the prediction and confidence score
         result = predict_toxicity(smiles)

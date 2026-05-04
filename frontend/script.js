@@ -1,6 +1,6 @@
 // Configuration: Point this to your FastAPI backend URL.
-// When testing locally with FastAPI, use localhost:8000
-const API_URL = "https://lung-pulmo-tox.onrender.com";
+// Use window.location.origin for relative deployments (e.g. Vercel)
+const API_URL = window.location.origin;
 
 document.addEventListener("DOMContentLoaded", () => {
     // Navigation Logic

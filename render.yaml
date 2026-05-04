@@ -1,4 +1,15 @@
 services:
+  # Streamlit App Service
+  - type: web
+    name: lung-pulmo-tox-streamlit
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+
+  # FastAPI Backend Service
   - type: web
     name: lung-pulmo-tox-api
     env: python
