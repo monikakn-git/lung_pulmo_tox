@@ -7,13 +7,15 @@ from feature_engineering import get_features_for_smiles
 
 # Global variables for caching
 MODEL = None
+SCALER = None
 REFERENCE_DATA = None
 
 def load_artifacts():
-    global MODEL, REFERENCE_DATA
+    global MODEL, SCALER, REFERENCE_DATA
     if MODEL is None:
         try:
             MODEL = joblib.load("model.joblib")
+            SCALER = joblib.load("scaler.joblib")
             REFERENCE_DATA = joblib.load("reference_data.joblib")
         except FileNotFoundError:
             return False
@@ -43,7 +45,6 @@ def compute_similarity(smiles):
 def predict_toxicity(smiles):
     """
     Predict toxicity for a given SMILES string.
-    Returns dictionary with risk, probability, and confidence.
     """
     if not load_artifacts():
         raise RuntimeError("Model artifacts not found. Please train the model first.")
@@ -52,8 +53,12 @@ def predict_toxicity(smiles):
     if features is None:
         raise ValueError("Invalid SMILES string")
         
-    # Convert to DataFrame to match training format
-    X_input = pd.DataFrame([features])
+    # Convert to DataFrame
+    X_input_raw = pd.DataFrame([features])
+    
+    # Scale features
+    X_scaled = SCALER.transform(X_input_raw)
+    X_input = pd.DataFrame(X_scaled, columns=X_input_raw.columns)
     
     # Predict
     prob = float(MODEL.predict_proba(X_input)[0, 1])
@@ -66,12 +71,7 @@ def predict_toxicity(smiles):
     else:
         risk = "LOW RISK"
         
-    # Calculate confidence based on similarity to training data
     similarity = compute_similarity(smiles)
-    
-    # simple heuristic for confidence: 
-    # High similarity -> High confidence. Max is 1.0.
-    # If similarity is < 0.3, we consider the model less confident
     confidence_score = similarity * 100
     
     return {
@@ -79,5 +79,6 @@ def predict_toxicity(smiles):
         "risk_category": risk,
         "confidence_score": confidence_score,
         "max_similarity": similarity,
-        "features": X_input
+        "features": X_input,
+        "model_name": REFERENCE_DATA.get("model_name", "Unknown")
     }

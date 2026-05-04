@@ -1,17 +1,33 @@
 import shap
 import joblib
 import pandas as pd
+import numpy as np
 
 EXPLAINER = None
+IS_TREE = True
 
 def get_explainer():
-    global EXPLAINER
+    global EXPLAINER, IS_TREE
     if EXPLAINER is None:
         model = joblib.load("model.joblib")
         reference_data = joblib.load("reference_data.joblib")
-        # We use a summary of background data to keep it fast
-        background = shap.sample(reference_data['X_train'], 50)
-        EXPLAINER = shap.TreeExplainer(model, background, feature_perturbation='interventional')
+        
+        # Check if model is tree-based
+        model_name = reference_data.get("model_name", "")
+        IS_TREE = model_name in ["XGBoost", "RandomForest", "ExtraTrees"]
+        
+        if IS_TREE:
+            background = shap.sample(reference_data['X_train'], 50)
+            EXPLAINER = shap.TreeExplainer(model, background, feature_perturbation='interventional')
+        else:
+            # For Artificial Neural Networks or Logistic Regression
+            # K-means to summarize the background to keep KernelExplainer fast
+            background = shap.kmeans(reference_data['X_train'], 10)
+            # KernelExplainer needs a function that predicts probabilities for the positive class
+            def predict_func(X):
+                return model.predict_proba(X)[:, 1]
+            EXPLAINER = shap.KernelExplainer(predict_func, background)
+            
     return EXPLAINER
 
 def explain_prediction(features_df, risk_category):
@@ -19,10 +35,15 @@ def explain_prediction(features_df, risk_category):
     Generate SHAP explanation text and top features for the input.
     """
     explainer = get_explainer()
-    shap_values = explainer(features_df)
     
-    # Extract feature importance for the single prediction
-    values = shap_values.values[0]
+    if IS_TREE:
+        shap_values_obj = explainer(features_df)
+        values = shap_values_obj.values[0]
+    else:
+        # KernelExplainer returns a list or array
+        shap_values = explainer.shap_values(features_df)
+        values = shap_values[0] if isinstance(shap_values, list) else shap_values[0]
+        
     feature_names = features_df.columns
     
     # Create a dataframe of feature contributions
@@ -52,4 +73,4 @@ def explain_prediction(features_df, risk_category):
         if not protective_feats.empty:
             explanation_text += f"Properties such as {', '.join(protective_feats['feature'].tolist()[:3])} reduce the risk."
 
-    return explanation_text, shap_values
+    return explanation_text, values

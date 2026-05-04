@@ -1,151 +1,51 @@
 drug_name,smiles,label
-Benzyl Chloride Derivative 69,C1=CC=C(C=C1)CClCCC,1
-Phenylglycine Derivative 10,C1=CC=C(C=C1)C(C(=O)O)NCC,0
-Omeprazole Derivative 65,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OCC,0
-Caffeine Derivative 107,CN1C=NC2=C1C(=O)N(C(=O)N2C)CC,0
-Omeprazole Derivative 88,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OCCC,0
-Phenacyl Chloride Derivative 9,C1=CC=C(C=C1)C(=O)CClCC,1
-Phenacyl Chloride Derivative 125,C1=CC=C(C=C1)C(=O)CClCC,1
-Phenacyl Chloride Derivative 105,C1=CC=C(C=C1)C(=O)CClCCC,1
-Amiodarone Derivative 86,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)IC,1
-Caffeine Derivative 28,CN1C=NC2=C1C(=O)N(C(=O)N2C)CCCC,0
-Aspirin Derivative 118,CC(=O)OC1=CC=CC=C1C(=O)OC,0
-Ibuprofen Derivative 36,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCCC,0
-Cyclohexanecarboxylic Acid Derivative 47,C1CCC(CC1)C(=O)OC,0
-Amoxicillin Derivative 80,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CCC,0
-Dinitrobenzene Derivative 56,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]C,1
-Aniline Derivative 62,C1=CC=C(C=C1)NCCC,1
-Dinitrobenzene Derivative 120,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]CC,1
-Phenyl Isocyanate Derivative 25,O=C=NC1=CC=CC=C1CCC,1
-Benzyl Chloride Derivative 115,C1=CC=C(C=C1)CClC,1
-Cyclohexanecarboxylic Acid Derivative 124,C1CCC(CC1)C(=O)OCCC,0
-Amoxicillin,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)C,0
-Phenyl Isocyanate Derivative 110,O=C=NC1=CC=CC=C1C,1
-Aniline Derivative 18,C1=CC=C(C=C1)NC,1
-Methotrexate Derivative 129,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)OC,1
-Acetaminophen Derivative 130,CC1=C(C=C(C=C1)NC(=O)C)OC,0
-Amoxicillin Derivative 81,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CC,0
-Phenylglycine Derivative 11,C1=CC=C(C=C1)C(C(=O)O)NCCC,0
-Albuterol Derivative 111,CC(C)(C)NCC(O)C1=CC(=C(C=C1)O)COC,0
-Phenyl Isocyanate Derivative 112,O=C=NC1=CC=CC=C1C,1
-Ibuprofen Derivative 49,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCCC,0
-Cyclohexanecarboxylic Acid Derivative 7,C1CCC(CC1)C(=O)OCCC,0
-Methotrexate Derivative 75,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)OCCC,1
-Phenyl Isocyanate Derivative 3,O=C=NC1=CC=CC=C1CCC,1
-Triphenylphosphine Derivative 21,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3CC,1
-Aniline Derivative 91,C1=CC=C(C=C1)NCC,1
-Aniline Derivative 72,C1=CC=C(C=C1)NCC,1
-Amoxicillin Derivative 82,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CC,0
-Bleomycin Derivative 78,CC1=C(C(=NC(=N1)C(C(C(=O)N)N)NC(=O)C(C(C)O)NC(=O)C(C(C)(C)O)NC(=O)C(C)C(=O)N2CCC(C2)C(=O)NC(CC3=CN=CN3)C(=O)NCC4=C(C=C(C=N4)C(=O)N)O)C)OCC,1
-Aspirin,CC(=O)OC1=CC=CC=C1C(=O)O,0
-Dinitrobenzene Derivative 95,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]CC,1
-Amiodarone Derivative 26,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)IC,1
-Ibuprofen Derivative 33,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCC,0
-Ibuprofen Derivative 100,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCC,0
-Caffeine Derivative 96,CN1C=NC2=C1C(=O)N(C(=O)N2C)CCC,0
-Benzyl Chloride Derivative 32,C1=CC=C(C=C1)CClCCC,1
-Benzoic Acid Derivative 83,C1=CC=C(C=C1)C(=O)OC,0
-Omeprazole Derivative 35,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OCCCC,0
-Phenylglycine,C1=CC=C(C=C1)C(C(=O)O)N,0
-Aniline Derivative 106,C1=CC=C(C=C1)NCCC,1
-Phenylglycine Derivative 76,C1=CC=C(C=C1)C(C(=O)O)NCC,0
-Ibuprofen Derivative 64,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OC,0
-Phenylglycine Derivative 71,C1=CC=C(C=C1)C(C(=O)O)NCC,0
-Ibuprofen Derivative 60,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OC,0
-Cyclohexanecarboxylic Acid,C1CCC(CC1)C(=O)O,0
-Dinitrobenzene Derivative 103,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]C,1
-Ibuprofen Derivative 24,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCCC,0
-Amiodarone Derivative 90,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)ICC,1
-Methotrexate,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)O,1
-Amoxicillin Derivative 42,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CC,0
-Aspirin Derivative 63,CC(=O)OC1=CC=CC=C1C(=O)OCC,0
-Caffeine,CN1C=NC2=C1C(=O)N(C(=O)N2C)C,0
+Gabapentin,C1CCC(CC1)(CC(=O)O)CN,0
+Erlotinib,COCCOC1=C(C=C2C(=C1)N=CN=C2NC3=CC=CC(=C3)C#C)OCCOC,1
 Phenyl Isocyanate,O=C=NC1=CC=CC=C1,1
-Aspirin Derivative 17,CC(=O)OC1=CC=CC=C1C(=O)OCC,0
-Phenylglycine Derivative 31,C1=CC=C(C=C1)C(C(=O)O)NCC,0
-Amiodarone Derivative 2,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)IC,1
-Aniline Derivative 68,C1=CC=C(C=C1)NCCC,1
-Amoxicillin Derivative 84,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CC,0
-Amoxicillin Derivative 119,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CCCC,0
-Methotrexate Derivative 66,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)OCCC,1
-Triphenylphosphine Derivative 93,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3CCC,1
+Sulfasalazine,C1=CC=C(C=C1)S(=O)(=O)NC2=NC=CC=C2.C1=CC=C(C=C1)N=NC3=CC(=C(C=C3)O)C(=O)O,1
+Escitalopram,CN(C)CCCC1(OCC2=C1C=CC(=C2)C#N)C3=CC=C(C=C3)F,0
+Nitrofurazone,C1=CC(=O)NC(=N1)NN=CC2=CC=C(O2)[N+](=O)[O-],1
 Dinitrobenzene,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-],1
-Dinitrobenzene Derivative 44,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]CC,1
-Triphenylphosphine Derivative 34,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3C,1
-Amiodarone Derivative 122,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)IC,1
-Ibuprofen,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,0
-Triphenylphosphine Derivative 37,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3CC,1
-Acetaminophen Derivative 61,CC1=C(C=C(C=C1)NC(=O)C)OC,0
-Triphenylphosphine Derivative 53,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3C,1
-Ibuprofen Derivative 99,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCC,0
-Phenacyl Chloride Derivative 16,C1=CC=C(C=C1)C(=O)CClCC,1
-Ibuprofen Derivative 73,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCC,0
-Dinitrobenzene Derivative 54,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]CCC,1
-Amiodarone,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)I,1
-Benzoic Acid Derivative 6,C1=CC=C(C=C1)C(=O)OCCC,0
-Aspirin Derivative 38,CC(=O)OC1=CC=CC=C1C(=O)OCCC,0
-Benzyl Chloride Derivative 67,C1=CC=C(C=C1)CClCC,1
-Caffeine Derivative 55,CN1C=NC2=C1C(=O)N(C(=O)N2C)CCC,0
-Aspirin Derivative 23,CC(=O)OC1=CC=CC=C1C(=O)OCC,0
-Benzoic Acid Derivative 70,C1=CC=C(C=C1)C(=O)OC,0
-Albuterol Derivative 79,CC(C)(C)NCC(O)C1=CC(=C(C=C1)O)COCCC,0
-Benzyl Chloride Derivative 98,C1=CC=C(C=C1)CClC,1
 Aniline,C1=CC=C(C=C1)N,1
-Aniline Derivative 114,C1=CC=C(C=C1)NCC,1
-Phenyl Isocyanate Derivative 46,O=C=NC1=CC=CC=C1CC,1
-Phenacyl Chloride,C1=CC=C(C=C1)C(=O)CCl,1
-Ibuprofen Derivative 102,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCCC,0
-Ibuprofen Derivative 19,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCCC,0
-Aniline Derivative 128,C1=CC=C(C=C1)NCCC,1
-Dinitrobenzene Derivative 27,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]C,1
-Benzyl Chloride,C1=CC=C(C=C1)CCl,1
-Amiodarone Derivative 5,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)IC,1
-Caffeine Derivative 89,CN1C=NC2=C1C(=O)N(C(=O)N2C)CC,0
-Methotrexate Derivative 50,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)OCC,1
-Acetaminophen Derivative 51,CC1=C(C=C(C=C1)NC(=O)C)OCCC,0
-Triphenylphosphine Derivative 48,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3C,1
-Amoxicillin Derivative 74,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CCC,0
-Methotrexate Derivative 126,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)OC,1
-Caffeine Derivative 101,CN1C=NC2=C1C(=O)N(C(=O)N2C)CCCC,0
-Amoxicillin Derivative 108,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)CCC,0
-Benzyl Chloride Derivative 40,C1=CC=C(C=C1)CClCC,1
-Omeprazole,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC,0
-Bleomycin,CC1=C(C(=NC(=N1)C(C(C(=O)N)N)NC(=O)C(C(C)O)NC(=O)C(C(C)(C)O)NC(=O)C(C)C(=O)N2CCC(C2)C(=O)NC(CC3=CN=CN3)C(=O)NCC4=C(C=C(C=N4)C(=O)N)O)C)O,1
-Triphenylphosphine Derivative 104,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3C,1
-Phenacyl Chloride Derivative 45,C1=CC=C(C=C1)C(=O)CClCCC,1
-Benzoic Acid Derivative 87,C1=CC=C(C=C1)C(=O)OCCC,0
+Amiodarone,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)I,1
+Cetirizine,C1CN(CCN1CCOCC(=O)O)C(C2=CC=CC=C2)C3=CC=C(C=C3)Cl,0
+Amlodipine,CCOC(=O)C1=C(COCCN)NC(=C(C1C2=CC=CC=C2Cl)C(=O)OC)C,0
+Phenylglycine,C1=CC=C(C=C1)C(C(=O)O)N,0
+Cyclophosphamide,C1CCNP(=O)(O1)N(CCCl)CCCl,1
+Amoxicillin,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)C,0
+Caffeine,CN1C=NC2=C1C(=O)N(C(=O)N2C)C,0
 Albuterol,CC(C)(C)NCC(O)C1=CC(=C(C=C1)O)CO,0
-Phenyl Isocyanate Derivative 59,O=C=NC1=CC=CC=C1CCC,1
-Bleomycin Derivative 57,CC1=C(C(=NC(=N1)C(C(C(=O)N)N)NC(=O)C(C(C)O)NC(=O)C(C(C)(C)O)NC(=O)C(C)C(=O)N2CCC(C2)C(=O)NC(CC3=CN=CN3)C(=O)NCC4=C(C=C(C=N4)C(=O)N)O)C)OC,1
-Benzyl Chloride Derivative 43,C1=CC=C(C=C1)CClCCC,1
-Albuterol Derivative 77,CC(C)(C)NCC(O)C1=CC(=C(C=C1)O)COCC,0
-Omeprazole Derivative 121,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OCCC,0
-Cyclohexanecarboxylic Acid Derivative 123,C1CCC(CC1)C(=O)OCC,0
-Ibuprofen Derivative 58,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCCC,0
-Ibuprofen Derivative 14,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCC,0
-Dinitrobenzene Derivative 117,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]C,1
-Methotrexate Derivative 15,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)OCCC,1
-Phenacyl Chloride Derivative 22,C1=CC=C(C=C1)C(=O)CClCC,1
-Phenyl Isocyanate Derivative 29,O=C=NC1=CC=CC=C1CC,1
-Cyclohexanecarboxylic Acid Derivative 52,C1CCC(CC1)C(=O)OCCC,0
-Amiodarone Derivative 92,CCCCC1=C(C2=C(O1)C=CC(=C2)I)C(=O)C3=CC(=C(C(=C3)I)OCCN(CC)CC)IC,1
-Phenyl Isocyanate Derivative 113,O=C=NC1=CC=CC=C1CC,1
-Phenylglycine Derivative 30,C1=CC=C(C=C1)C(C(=O)O)NCCC,0
-Acetaminophen Derivative 109,CC1=C(C=C(C=C1)NC(=O)C)OC,0
-Aspirin Derivative 116,CC(=O)OC1=CC=CC=C1C(=O)OCC,0
-Acetaminophen,CC1=C(C=C(C=C1)NC(=O)C)O,0
+Paraquat,C[N+]1=CC=C(C=C1)C2=CC=C(C=C2)[N+]C,1
+Carmustine Var,C(CCl)NC(=O)N(CCC)N=O,1
+Minocycline,CN(C)C1C2C(C(C3=C(C=CC(=C3C2(C(=O)C(=C1O)C(=O)N)O)O)N(C)C)O)O,1
+Furosemide,C1=CC=C(C=C1)CN[C@H]2C=C(C(=CC2=O)S(=O)(=O)N)Cl,0
+Omeprazole,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC,0
+Pantoprazole,CC1=CN=C(C(=C1OC)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC(F)F)C,0
+Vitamin C,C(C(C1C(=C(C(=O)O1)O)O)O)O,0
+Nitrofurantoin,C1C(=O)NC(=O)N1N=CC2=CC=C(O2)[N+](=O)[O-],1
+Bleomycin,CC1=C(C(=NC(=N1)C(C(C(=O)N)N)NC(=O)C(C(C)O)NC(=O)C(C(C)(C)O)NC(=O)C(C)C(=O)N2CCC(C2)C(=O)NC(CC3=CN=CN3)C(=O)NCC4=C(C=C(C=N4)C(=O)N)O)C)O,1
+Aspirin,CC(=O)OC1=CC=CC=C1C(=O)O,0
+Melphalan,C1=CC(=CC=C1CC(C(=O)O)N)N(CCCl)CCCl,1
+Benzyl Chloride,C1=CC=C(C=C1)CCl,1
+Methotrexate,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)O,1
 Benzoic Acid,C1=CC=C(C=C1)C(=O)O,0
-Triphenylphosphine Derivative 8,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3CCC,1
-Ibuprofen Derivative 39,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCC,0
-Ibuprofen Derivative 41,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OC,0
-Ibuprofen Derivative 97,CC(C)CC1=CC=C(C=C1)C(C)C(=O)OCCC,0
-Methotrexate Derivative 1,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)OC,1
-Caffeine Derivative 0,CN1C=NC2=C1C(=O)N(C(=O)N2C)CCCC,0
-Dinitrobenzene Derivative 94,C1=CC(=CC=C1[N+](=O)[O-])[N+](=O)[O-]C,1
 Triphenylphosphine,C1=CC=C(C=C1)P(C2=CC=CC=C2)C3=CC=CC=C3,1
-Albuterol Derivative 127,CC(C)(C)NCC(O)C1=CC(=C(C=C1)O)COCCC,0
-Aniline Derivative 20,C1=CC=C(C=C1)NCCC,1
-Albuterol Derivative 4,CC(C)(C)NCC(O)C1=CC(=C(C=C1)O)COCCC,0
-Aspirin Derivative 12,CC(=O)OC1=CC=CC=C1C(=O)OCCC,0
-Phenacyl Chloride Derivative 85,C1=CC=C(C=C1)C(=O)CClCCC,1
-Aspirin Derivative 13,CC(=O)OC1=CC=CC=C1C(=O)OCCC,0
+Metformin,CN(C)C(=NC(=N)N)N,0
+Carmustine,C(CCl)NC(=O)N(CCCl)N=O,1
+Ibuprofen,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,0
+Diphenhydramine,CN(C)CCOC(C1=CC=CC=C1)C2=CC=CC=C2,0
+Acetaminophen,CC1=C(C=C(C=C1)NC(=O)C)O,0
+Chlorambucil,C1=CC(=CC=C1CCCC(=O)O)N(CCCl)CCCl,1
+Busulfan,CS(=O)(=O)OCCCCOS(=O)(=O)C,1
+Azithromycin,CCC1C(C(C(N(CC(CC(C(C(C(C(C(=O)O1)C)OC2CC(C(C(O2)C)O)(C)N)C)O)C)C)C)O)C)O,0
+Phosgene,C(=O)(Cl)Cl,1
+Lisinopril,OC(=O)C(N)CCCCNC(C)C(=O)N1CCCC1C(=O)O,0
+Clindamycin,CCCC1CC(N(C1)C)C(=O)NC(C2C(C(C(C(O2)SC)O)O)O)C(C)Cl,0
+Rosuvastatin,CC(C)C1=NC(=NC(=C1C=CC(CC(CC(=O)O)O)O)C2=CC=C(C=C2)F)N(C)S(=O)(=O)C,0
+Bischloroethyl Nitrosourea,O=NN(CCCl)C(=O)NCCCl,1
+Loratadine,CCOC(=O)N1CCC(=C2C3=C(CCC4=C2N=CC=C4)C=C(C=C3)Cl)CC1,0
+Cyclohexanecarboxylic Acid,C1CCC(CC1)C(=O)O,0
+Nitrogen Mustard,CN(CCCl)CCCl,1
+Sertraline,CN[C@H]1CC[C@@H](C2=CC=CC=C12)C3=CC=C(C=C3Cl)Cl,0
+Phenacyl Chloride,C1=CC=C(C=C1)C(=O)CCl,1
+Gefitinib,COC1=C(C=C2C(=C1)N=CN=C2NC3=CC(=C(C=C3)F)Cl)OCCCN4CCOCC4,1
