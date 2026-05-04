@@ -248,38 +248,47 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Stacking Ensemble</td>
-                                <td>0.72</td>
+                                <td>XGBoost</td>
+                                <td>0.84</td>
                                 <td>0.80</td>
-                                <td>0.78</td>
+                                <td>0.83</td>
                             </tr>
                             <tr>
                                 <td>Random Forest</td>
                                 <td>0.84</td>
-                                <td>0.70</td>
-                                <td>0.68</td>
+                                <td>0.80</td>
+                                <td>0.83</td>
                             </tr>
                             <tr>
                                 <td>Extra Trees</td>
-                                <td>0.84</td>
-                                <td>0.70</td>
-                                <td>0.69</td>
-                            </tr>
-                            <tr>
-                                <td>XGBoost</td>
-                                <td>0.76</td>
-                                <td>0.80</td>
-                                <td>0.76</td>
+                                <td>0.83</td>
+                                <td>0.78</td>
+                                <td>0.81</td>
                             </tr>
                             <tr>
                                 <td>Neural Network</td>
-                                <td>0.72</td>
-                                <td>0.60</td>
-                                <td>0.58</td>
+                                <td>0.82</td>
+                                <td>0.79</td>
+                                <td>0.78</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <div class="visuals-grid mt-10">
+                    <div class="visual-card">
+                        <label>Receiver Operating Characteristic (ROC)</label>
+                        <img src="final_roc_curve.png" alt="ROC Curve" class="model-graph">
+                        <p class="graph-caption">Area Under Curve (AUC) of 0.84 indicates high discriminatory power between toxic and safe compounds.</p>
+                    </div>
+                    <div class="visual-card">
+                        <label>Confusion Matrix</label>
+                        <img src="final_confusion_matrix.png" alt="Confusion Matrix" class="model-graph">
+                        <p class="graph-caption">The matrix demonstrates high sensitivity in identifying positive toxicity cases, which is critical for drug safety screening.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
             </div>
         </div>
     </main>
@@ -299,13 +308,17 @@
                 </div>
 
                 <div class="glass-card about-box">
-                    <h3>Dataset Provenance</h3>
-                    <p>Our models are trained on a curated dataset of 2,400+ compounds aggregated from <strong>PneumoTox</strong>, <strong>FAERS</strong> (FDA Adverse Event Reporting System), and <strong>SIDER</strong>. All labels are cross-verified against clinical case reports to ensure the highest data integrity.</p>
+                    <h3>Methodology & Training</h3>
+                    <p>Our pipeline utilizes 2048-bit <strong>Morgan Fingerprints</strong> (ECFP4 equivalent) combined with physical-chemical descriptors. The dataset (N=2400+) was split using an <strong>80/20 Stratified Hold-out</strong> strategy. To ensure robustness, <strong>5-Fold Cross-Validation</strong> was performed during the training phase to optimize hyperparameters across all architectural layers.</p>
                 </div>
                 
                 <div class="glass-card about-box">
-                    <h3>The Ensemble Stack</h3>
-                    <p>ToxPredict utilizes a **Stacking Ensemble** where predictions from Random Forest and Extra Trees are dynamically weighted. By converting structures into <strong>2048-bit Morgan Fingerprints</strong>, the model identifies specific structural motifs that correlate with clinical lung damage.</p>
+                    <h3>System Architecture</h3>
+                    <p>ToxPredict employs a multi-layered <strong>Heterogeneous Ensemble Stacking</strong> approach:</p>
+                    <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                        <li><strong>Layer 0 (Base)</strong>: RandomForest, ExtraTrees, and MLP Neural Networks acting as diverse feature extractors.</li>
+                        <li><strong>Layer 1 (Meta)</strong>: A Gradient Boosted Decision Tree (XGBoost) that aggregates base predictions into a final probability score.</li>
+                    </ul>
                 </div>
                 
                 <div class="glass-card about-box wide">

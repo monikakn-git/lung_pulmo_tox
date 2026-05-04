@@ -1,0 +1,5 @@
+Model,ROC AUC,Accuracy,F1 Score
+XGBoost,0.84,0.8,0.83
+RandomForest,0.84,0.8,0.83
+ExtraTrees,0.83,0.78,0.81
+NeuralNet,0.82,0.79,0.78

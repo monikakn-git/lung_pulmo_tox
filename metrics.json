@@ -1,0 +1,12 @@
+{
+  "XGBoost": {
+    "roc_auc": 0.84,
+    "accuracy": 0.8,
+    "f1": 0.833
+  },
+  "RandomForest": {
+    "roc_auc": 0.84,
+    "accuracy": 0.8,
+    "f1": 0.833
+  }
+}

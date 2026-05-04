@@ -1115,3 +1115,48 @@ input:focus {
     z-index: 2;
 }
 
+
+/* Performance Visuals Grid */
+.visuals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.visual-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    text-align: center;
+}
+
+.visual-card label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05rem;
+}
+
+.model-graph {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.graph-caption {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .visuals-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
