@@ -36,21 +36,34 @@ def train_model():
     num_negative = np.sum(y_train == 0)
     scale_pos_weight = num_negative / num_positive if num_positive > 0 else 1.0
     
+    from sklearn.ensemble import StackingClassifier
+    
     # Define suite of models
+    base_models = [
+        ("RandomForest", RandomForestClassifier(n_estimators=100, max_depth=10, class_weight="balanced", random_state=42)),
+        ("ExtraTrees", ExtraTreesClassifier(n_estimators=100, max_depth=10, class_weight="balanced", random_state=42)),
+        ("ANN", MLPClassifier(hidden_layer_sizes=(128, 64), max_iter=1000, random_state=42, early_stopping=True))
+    ]
+    
+    # Final Meta-Model
+    meta_model = XGBClassifier(
+        n_estimators=50, max_depth=3, learning_rate=0.05, 
+        scale_pos_weight=scale_pos_weight, random_state=42, eval_metric='logloss'
+    )
+    
+    stacking_ensemble = StackingClassifier(
+        estimators=base_models,
+        final_estimator=meta_model,
+        cv=5
+    )
+    
+    # Add ensemble to the comparison list
     models = {
-        "XGBoost": XGBClassifier(
-            n_estimators=100, max_depth=4, learning_rate=0.1, 
-            scale_pos_weight=scale_pos_weight, random_state=42, eval_metric='logloss'
-        ),
-        "RandomForest": RandomForestClassifier(
-            n_estimators=100, max_depth=10, class_weight="balanced", random_state=42
-        ),
-        "ExtraTrees": ExtraTreesClassifier(
-            n_estimators=100, max_depth=10, class_weight="balanced", random_state=42
-        ),
-        "ArtificialNeuralNetwork": MLPClassifier(
-            hidden_layer_sizes=(128, 64), max_iter=1000, random_state=42, early_stopping=True
-        )
+        "XGBoost": XGBClassifier(n_estimators=100, max_depth=4, learning_rate=0.1, scale_pos_weight=scale_pos_weight, random_state=42, eval_metric='logloss'),
+        "RandomForest": RandomForestClassifier(n_estimators=100, max_depth=10, class_weight="balanced", random_state=42),
+        "ExtraTrees": ExtraTreesClassifier(n_estimators=100, max_depth=10, class_weight="balanced", random_state=42),
+        "NeuralNetwork": MLPClassifier(hidden_layer_sizes=(128, 64), max_iter=1000, random_state=42, early_stopping=True),
+        "StackingEnsemble": stacking_ensemble
     }
     
     best_model = None

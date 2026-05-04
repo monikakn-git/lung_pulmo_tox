@@ -105,7 +105,7 @@ elif page == "Dashboard":
                 st.markdown("**Molecular Structure**")
                 mol = Chem.MolFromSmiles(smiles)
                 if mol:
-                    img = Draw.MolToImage(mol, size=(300, 300))
+                    img = Draw.MolToImage(mol, size=(500, 500))
                     st.image(img, use_container_width=True)
                 else:
                     st.warning("Structure not available")

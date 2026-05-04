@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const resConfValue = document.getElementById("res-conf-value");
     const resExplanationText = document.getElementById("res-explanation-text");
     const modelsList = document.getElementById("models-list");
+    const shapChart = document.getElementById("shap-chart");
+    const neighborName = document.getElementById("neighbor-name");
+    const neighborSim = document.getElementById("neighbor-sim");
+    const neighborLabel = document.getElementById("neighbor-label");
+    const similarityAlert = document.getElementById("similarity-alert");
+    const similarityText = document.getElementById("similarity-text");
 
     document.getElementById("back-to-dash-btn")?.addEventListener("click", () => {
         switchPage('dashboard-page');
@@ -98,19 +104,60 @@ document.addEventListener("DOMContentLoaded", () => {
             // Populate Models List
             modelsList.innerHTML = '';
             if (data.all_models) {
-                Object.entries(data.all_models).forEach(([name, prob]) => {
-                    const probPct = (prob * 100).toFixed(1);
-                    const item = document.createElement('div');
-                    item.className = 'model-item';
-                    item.innerHTML = `
-                        <span class="model-name">${name}</span>
-                        <div class="model-prob-bar">
-                            <div class="prob-fill" style="width: ${probPct}%"></div>
+                // Sort by probability descending
+                Object.entries(data.all_models)
+                    .sort(([,a], [,b]) => b - a)
+                    .forEach(([name, prob]) => {
+                        const probPct = (prob * 100).toFixed(1);
+                        const item = document.createElement('div');
+                        item.className = 'model-item';
+                        item.innerHTML = `
+                            <span class="model-name">${name}</span>
+                            <div class="model-prob-bar">
+                                <div class="prob-fill" style="width: ${probPct}%"></div>
+                            </div>
+                            <span class="model-val">${probPct}%</span>
+                        `;
+                        modelsList.appendChild(item);
+                    });
+            }
+
+            // Populate SHAP Chart
+            shapChart.innerHTML = '';
+            if (data.shap_values) {
+                // Find max abs value for normalization
+                const maxAbs = Math.max(...data.shap_values.map(v => Math.abs(v.value)));
+                
+                data.shap_values.forEach(item => {
+                    const width = (Math.abs(item.value) / maxAbs * 100).toFixed(0);
+                    const colorClass = item.value > 0 ? 'pos-bar' : 'neg-bar';
+                    const row = document.createElement('div');
+                    row.className = 'shap-row';
+                    row.innerHTML = `
+                        <div class="shap-label">${item.feature}</div>
+                        <div class="shap-bar-bg">
+                            <div class="shap-bar-fill ${colorClass}" style="width: ${width}%"></div>
                         </div>
-                        <span class="model-val">${probPct}%</span>
+                        <div class="shap-val">${item.value.toFixed(3)}</div>
                     `;
-                    modelsList.appendChild(item);
+                    shapChart.appendChild(row);
                 });
+            }
+
+            // Populate Nearest Neighbor
+            if (data.nearest_neighbor) {
+                neighborName.textContent = data.nearest_neighbor.name;
+                neighborSim.textContent = `Structural Similarity: ${(data.nearest_neighbor.similarity * 100).toFixed(1)}%`;
+                neighborLabel.textContent = data.nearest_neighbor.label;
+                neighborLabel.style.color = data.nearest_neighbor.label === 'TOXIC' ? 'var(--risk-high)' : 'var(--accent-primary)';
+                
+                // Show similarity warning if below 30%
+                if (data.nearest_neighbor.similarity < 0.3) {
+                    similarityAlert.classList.remove('hidden');
+                    similarityText.textContent = "Out-of-distribution: This molecule is structurally unique vs our training set.";
+                } else {
+                    similarityAlert.classList.add('hidden');
+                }
             }
 
             // Apply risk color coding

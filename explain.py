@@ -81,7 +81,13 @@ def explain_prediction(features_df, risk_category):
     contributions['abs_contribution'] = contributions['contribution'].abs()
     contributions = contributions.sort_values(by='abs_contribution', ascending=False)
     
-    top_features = contributions.head(5)
+    top_features = contributions.head(10)
+    top_features_list = []
+    for _, row in top_features.iterrows():
+        top_features_list.append({
+            "feature": row['feature'],
+            "value": float(row['contribution'])
+        })
     
     # Generate simple textual explanation
     if risk_category == "HIGH RISK" or risk_category == "MEDIUM RISK":
@@ -99,4 +105,4 @@ def explain_prediction(features_df, risk_category):
         if not protective_feats.empty:
             explanation_text += f"Properties such as {', '.join(protective_feats['feature'].tolist()[:3])} reduce the risk."
 
-    return explanation_text, values
+    return explanation_text, top_features_list

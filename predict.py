@@ -104,5 +104,42 @@ def predict_all_models(smiles):
     for name, model in ALL_MODELS.items():
         prob = float(model.predict_proba(X_input)[0, 1])
         results[name] = prob
-        
-    return results
+    
+    # NEW: Complexity Boost - Tanimoto Similarity Search
+    # Find nearest neighbor in training set
+    from rdkit import DataStructs
+    from feature_engineering import get_morgan_fingerprint
+    
+    query_fp = get_morgan_fingerprint(smiles)
+    train_smiles = REFERENCE_DATA['smiles_train']
+    train_labels = REFERENCE_DATA['y_train']
+    
+    max_sim = 0
+    nearest_idx = -1
+    
+    for i, ts in enumerate(train_smiles):
+        tfp = get_morgan_fingerprint(ts)
+        if tfp:
+            sim = DataStructs.TanimotoSimilarity(query_fp, tfp)
+            if sim > max_sim:
+                max_sim = sim
+                nearest_idx = i
+    
+    nearest_drug = "Unknown"
+    nearest_label = "Unknown"
+    if nearest_idx != -1:
+        # Cross reference with data.csv to get the name
+        df = pd.read_csv("data.csv")
+        match = df[df['smiles'] == train_smiles[nearest_idx]]
+        if not match.empty:
+            nearest_drug = match.iloc[0]['drug_name']
+            nearest_label = "TOXIC" if train_labels[nearest_idx] == 1 else "SAFE"
+
+    return {
+        "model_predictions": results,
+        "nearest_neighbor": {
+            "name": nearest_drug,
+            "similarity": float(max_sim),
+            "label": nearest_label
+        }
+    }

@@ -38,6 +38,8 @@ class PredictResponse(BaseModel):
     explanation: str
     image_base64: str
     all_models: dict
+    shap_values: list
+    nearest_neighbor: dict
 
 @app.post("/api/predict", response_model=PredictResponse)
 def predict_endpoint(request: PredictRequest):
@@ -68,12 +70,15 @@ def predict_endpoint(request: PredictRequest):
         img_base64 = ""
         if mol:
             buffered = BytesIO()
-            img = Draw.MolToImage(mol, size=(300, 300))
+            img = Draw.MolToImage(mol, size=(500, 500))
             img.save(buffered, format="PNG")
             img_base64 = base64.b64encode(buffered.getvalue()).decode()
             
-        # Get all model predictions
-        all_model_results = predict_all_models(smiles)
+        # Get all model predictions & Similarity Search
+        multi_data = predict_all_models(smiles)
+        
+        # Get SHAP top features
+        _, top_features = explain_prediction(result['features'], result['risk_category'])
             
         return PredictResponse(
             drug_name=actual_drug_name,
@@ -83,7 +88,9 @@ def predict_endpoint(request: PredictRequest):
             confidence_score=float(result['confidence_score']),
             explanation=explanation_text,
             image_base64=img_base64,
-            all_models=all_model_results
+            all_models=multi_data['model_predictions'],
+            shap_values=top_features,
+            nearest_neighbor=multi_data['nearest_neighbor']
         )
         
     except HTTPException:
