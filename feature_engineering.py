@@ -33,7 +33,8 @@ def get_features_for_smiles(smiles, radius=2, nBits=2048):
         features['NumRings'] = num_rings
         
         return features
-    except Exception:
+    except Exception as e:
+        print(f"Feature engineering error: {e}")
         return None
 
 def engineer_features(df):

@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import shap
+import pubchempy as pcp
 from predict import predict_toxicity, load_artifacts
 from explain import explain_prediction
 
@@ -9,7 +10,7 @@ from explain import explain_prediction
 st.set_page_config(page_title="Pulmonary Toxicity Predictor", page_icon="🫁", layout="centered")
 
 st.title("🫁 Pulmonary Toxicity Predictor")
-st.markdown("Predict whether a drug is likely to cause lung toxicity based on its molecular structure (SMILES).")
+st.markdown("Predict whether a drug is likely to cause lung toxicity based on its name or molecular structure (SMILES).")
 
 # Load model artifacts
 try:
@@ -21,8 +22,26 @@ except Exception as e:
     st.stop()
 
 # Input section
-st.subheader("Analyze Molecule")
-smiles_input = st.text_input("Enter SMILES String:", placeholder="e.g. CC(=O)OC1=CC=CC=C1C(=O)O")
+st.subheader("Analyze Drug")
+input_mode = st.radio("Input Type:", ["Drug Name", "SMILES String"], horizontal=True)
+
+final_smiles = ""
+
+if input_mode == "Drug Name":
+    drug_name = st.text_input("Enter Drug Name:", placeholder="e.g. Aspirin, Ibuprofen, Lisinopril")
+    if drug_name:
+        try:
+            with st.spinner(f"Searching for '{drug_name}' in PubChem..."):
+                compounds = pcp.get_compounds(drug_name, 'name')
+                if compounds:
+                    final_smiles = compounds[0].canonical_smiles
+                    st.success(f"Found SMILES for {drug_name}: `{final_smiles}`")
+                else:
+                    st.error(f"Could not find SMILES for drug name: {drug_name}")
+        except Exception as e:
+            st.error(f"Error searching PubChem: {e}")
+else:
+    final_smiles = st.text_input("Enter SMILES String:", placeholder="e.g. CC(=O)OC1=CC=CC=C1C(=O)O")
 
 col1, col2 = st.columns([1, 1])
 
@@ -36,7 +55,22 @@ if compare_btn:
     st.session_state.compare_mode = not st.session_state.get('compare_mode', False)
 
 if st.session_state.get('compare_mode', False):
-    smiles_input_2 = st.text_input("Enter Second SMILES String (for comparison):", placeholder="e.g. C1=CC=C(C=C1)N")
+    final_smiles_2 = ""
+    if input_mode == "Drug Name":
+        drug_name_2 = st.text_input("Enter Second Drug Name (for comparison):", placeholder="e.g. Paracetamol")
+        if drug_name_2:
+            try:
+                with st.spinner(f"Searching for '{drug_name_2}'..."):
+                    compounds_2 = pcp.get_compounds(drug_name_2, 'name')
+                    if compounds_2:
+                        final_smiles_2 = compounds_2[0].canonical_smiles
+                        st.success(f"Found SMILES for {drug_name_2}: `{final_smiles_2}`")
+                    else:
+                        st.error(f"Could not find SMILES for drug name: {drug_name_2}")
+            except Exception as e:
+                st.error(f"Error searching PubChem: {e}")
+    else:
+        final_smiles_2 = st.text_input("Enter Second SMILES String (for comparison):", placeholder="e.g. C1=CC=C(C=C1)N")
 
 def display_results(smiles, title="Results"):
     st.subheader(title)
@@ -82,15 +116,15 @@ def display_results(smiles, title="Results"):
         st.error(f"⚠️ An error occurred: {e}")
 
 # Trigger prediction
-if predict_btn and smiles_input:
-    display_results(smiles_input)
+if predict_btn and final_smiles:
+    display_results(final_smiles)
     
-    if st.session_state.get('compare_mode', False) and 'smiles_input_2' in locals() and smiles_input_2:
+    if st.session_state.get('compare_mode', False) and 'final_smiles_2' in locals() and final_smiles_2:
         st.markdown("---")
-        display_results(smiles_input_2, title="Comparison Results")
+        display_results(final_smiles_2, title="Comparison Results")
         
 elif predict_btn:
-    st.warning("Please enter a valid SMILES string.")
+    st.warning("Please enter a valid drug name or SMILES string.")
 
 st.markdown("---")
 st.caption("Developed for Hackathon | Powered by XGBoost & RDKit")

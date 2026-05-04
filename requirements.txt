@@ -7,3 +7,5 @@ rdkit
 joblib
 fastapi
 uvicorn
+matplotlib
+pubchempy
