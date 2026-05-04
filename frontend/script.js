@@ -42,6 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const probValue = document.getElementById("prob-value");
     const confValue = document.getElementById("conf-value");
     const explanationText = document.getElementById("explanation-text");
+    const moleculeImage = document.getElementById("molecule-image");
+    const moleculePlaceholder = document.getElementById("molecule-placeholder");
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -56,8 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
         errorMessage.classList.add("hidden");
         resultSection.classList.add("hidden");
         
-        // Reset old classes
+        // Reset old classes & images
         riskValue.className = "metric-value";
+        moleculeImage.classList.add("hidden");
+        moleculeImage.src = "";
+        moleculePlaceholder.classList.remove("hidden");
+        moleculePlaceholder.textContent = "Generating image...";
 
         try {
             // Fix 404 by hitting the correct endpoint
@@ -83,6 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
             probValue.textContent = `${(data.probability * 100).toFixed(1)}%`;
             confValue.textContent = `${data.confidence_score.toFixed(1)}%`;
             explanationText.textContent = data.explanation;
+
+            // Handle Molecular Image
+            if (data.image_base64) {
+                moleculeImage.src = `data:image/png;base64,${data.image_base64}`;
+                moleculeImage.classList.remove("hidden");
+                moleculePlaceholder.classList.add("hidden");
+            } else {
+                moleculePlaceholder.textContent = "Image not available";
+            }
 
             // Apply risk color coding
             if (data.risk_category === "HIGH RISK") {

@@ -19,6 +19,7 @@
         <ul class="nav-links">
             <li><a href="#" data-target="home-page" class="active">Home</a></li>
             <li><a href="#" data-target="dashboard-page">Dashboard</a></li>
+            <li><a href="#" data-target="performance-page">Performance</a></li>
             <li><a href="#" data-target="about-page">About</a></li>
         </ul>
     </nav>
@@ -76,6 +77,37 @@
                 </div>
             </div>
         </section>
+
+        <section class="workflow-section">
+            <div class="container-inner">
+                <div class="section-header text-center">
+                    <h2>Our Analysis Pipeline</h2>
+                    <p>From chemical structure to toxicity risk assessment.</p>
+                </div>
+                <div class="workflow-grid">
+                    <div class="workflow-step glass-card">
+                        <div class="step-num">01</div>
+                        <h3>Data Input</h3>
+                        <p>Users provide a drug name or SMILES string for structural identification.</p>
+                    </div>
+                    <div class="workflow-step glass-card">
+                        <div class="step-num">02</div>
+                        <h3>Feature Extraction</h3>
+                        <p>RDKit computes molecular descriptors and Morgan Fingerprints (2048-bit).</p>
+                    </div>
+                    <div class="workflow-step glass-card">
+                        <div class="step-num">03</div>
+                        <h3>Model Inference</h3>
+                        <p>Optimized XGBoost & Random Forest models predict the toxicity probability.</p>
+                    </div>
+                    <div class="workflow-step glass-card">
+                        <div class="step-num">04</div>
+                        <h3>Interpretation</h3>
+                        <p>SHAP values provide a transparent explanation of the biological risk factors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Dashboard Page -->
@@ -105,6 +137,14 @@
                     <h2 class="section-title">Analysis Results for <span id="display-drug-name" class="highlight"></span></h2>
                 </div>
                 
+                <div class="dashboard-split">
+                    <div class="molecule-visual glass-card">
+                        <h3>Molecular Structure</h3>
+                        <img id="molecule-image" src="" alt="Molecular Structure" class="hidden">
+                        <div id="molecule-placeholder" class="placeholder-text">Generating image...</div>
+                    </div>
+
+                
                 <div class="cards-grid">
                     <div class="glass-card risk-card">
                         <h3>Risk Category</h3>
@@ -120,12 +160,34 @@
                         <p class="helper-text">Based on structural similarity</p>
                     </div>
                 </div>
+                </div>
 
                 <div class="explanation-panel glass-card mt-6">
                     <h3>AI Explanation</h3>
                     <p id="explanation-text">--</p>
                 </div>
             </section>
+        </div>
+    </main>
+
+    <!-- Performance Page -->
+    <main id="performance-page" class="page">
+        <div class="page-header text-center">
+            <h1>Model <span class="highlight">Performance</span></h1>
+            <p>Comparing various machine learning architectures for toxicity prediction.</p>
+        </div>
+        
+        <div class="container-inner">
+            <div class="glass-panel text-center">
+                <h3>Benchmark Results</h3>
+                <p class="mt-4 mb-6">
+                    We trained a suite of state-of-the-art models on our curated dataset. <strong>Random Forest</strong> and <strong>Extra Trees</strong> 
+                    yielded the highest ROC AUC, making them exceptionally reliable for discriminating between toxic and safe compounds.
+                </p>
+                <div class="graph-container">
+                    <img src="model_comparison.png" alt="Model Comparison Graph" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--card-border);">
+                </div>
+            </div>
         </div>
     </main>
 
@@ -137,25 +199,33 @@
         </div>
         
         <div class="container-inner">
-            <div class="glass-panel content-rich">
-                <h3>The Challenge of Pulmonary Toxicity</h3>
-                <p>Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.</p>
+            <div class="about-grid">
+                <div class="glass-card about-box">
+                    <h3>The Challenge of Pulmonary Toxicity</h3>
+                    <p>Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.</p>
+                </div>
 
-                <h3 class="mt-6">Our Methodology</h3>
-                <p>ToxPredict shifts the paradigm by utilizing an <strong>XGBoost machine learning architecture</strong> trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a <strong>Morgan Fingerprint</strong>, the model can "see" the structural motifs that historically correlate with lung damage.</p>
+                <div class="glass-card about-box">
+                    <h3>Our Methodology</h3>
+                    <p>ToxPredict shifts the paradigm by utilizing an <strong>XGBoost machine learning architecture</strong> trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a <strong>Morgan Fingerprint</strong>, the model can "see" the structural motifs that historically correlate with lung damage.</p>
+                </div>
                 
-                <h3 class="mt-6">Key Physicochemical Descriptors</h3>
-                <p>Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:</p>
-                <ul class="feature-list">
-                    <li><strong>Molecular Weight:</strong> Influences tissue penetration and accumulation rates.</li>
-                    <li><strong>LogP (Lipophilicity):</strong> High lipophilicity often correlates with deeper cellular membrane permeation.</li>
-                    <li><strong>Topological Polar Surface Area (TPSA):</strong> Helps predict transport across biological barriers.</li>
-                    <li><strong>Number of Rotatable Bonds:</strong> A measure of molecular flexibility.</li>
-                    <li><strong>Hydrogen Bond Donors/Acceptors:</strong> Crucial for understanding target binding affinity.</li>
-                </ul>
+                <div class="glass-card about-box wide">
+                    <h3>Key Physicochemical Descriptors</h3>
+                    <p>Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:</p>
+                    <ul class="feature-list grid-list">
+                        <li><strong>Molecular Weight:</strong> Influences tissue penetration and accumulation rates.</li>
+                        <li><strong>LogP (Lipophilicity):</strong> High lipophilicity often correlates with deeper cellular membrane permeation.</li>
+                        <li><strong>Topological Polar Surface Area (TPSA):</strong> Helps predict transport across biological barriers.</li>
+                        <li><strong>Number of Rotatable Bonds:</strong> A measure of molecular flexibility.</li>
+                        <li><strong>Hydrogen Bond Donors/Acceptors:</strong> Crucial for understanding target binding affinity.</li>
+                    </ul>
+                </div>
 
-                <h3 class="mt-6">Technology Stack & Explainability</h3>
-                <p>The backend is powered by <strong>Python, FastAPI, and RDKit</strong> for high-performance chemoinformatics. The predictive engine relies on <strong>scikit-learn and XGBoost</strong>. To avoid the "black box" problem of AI, we integrated <strong>SHAP (SHapley Additive exPlanations)</strong>, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.</p>
+                <div class="glass-card about-box wide">
+                    <h3>Technology Stack & Explainability</h3>
+                    <p>The backend is powered by <strong>Python, FastAPI, and RDKit</strong> for high-performance chemoinformatics. The predictive engine relies on <strong>scikit-learn and XGBoost</strong>. To avoid the "black box" problem of AI, we integrated <strong>SHAP (SHapley Additive exPlanations)</strong>, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.</p>
+                </div>
             </div>
         </div>
     </main>

@@ -604,3 +604,131 @@ input:focus {
     .cards-grid { grid-template-columns: 1fr; }
     .footer-content { flex-direction: column; gap: 1rem; text-align: center; }
 }
+
+/* Dashboard Split & Molecule Visual */
+.dashboard-split {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.molecule-visual {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.molecule-visual img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 1rem;
+    background: white;
+}
+
+.placeholder-text {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Workflow Section */
+.workflow-section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--card-border);
+}
+
+.section-header {
+    margin-bottom: 4rem;
+}
+
+.workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+}
+
+.workflow-step {
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-num {
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(0, 255, 162, 0.05);
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    z-index: 0;
+}
+
+.workflow-step h3 {
+    position: relative;
+    z-index: 1;
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
+}
+
+.workflow-step p {
+    position: relative;
+    z-index: 1;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* About Grid */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.about-box {
+    padding: 2rem;
+    text-align: left;
+}
+
+.about-box.wide {
+    grid-column: span 2;
+}
+
+.about-box h3 {
+    color: var(--accent-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.about-box p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+    .about-box.wide {
+        grid-column: span 1;
+    }
+}
+

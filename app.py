@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import shap
 from predict import predict_toxicity, load_artifacts
 from explain import explain_prediction
+from rdkit import Chem
+from rdkit.Chem import Draw
+import os
 
 # Configure page
 st.set_page_config(page_title="Pulmonary Toxicity Predictor", page_icon="🫁", layout="centered")
@@ -23,22 +26,34 @@ def lookup_drug(drug_name):
 
 # Navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Home", "Dashboard", "About"])
+page = st.sidebar.radio("Go to", ["Home", "Dashboard", "Model Performance", "About"])
 
 if page == "Home":
     st.title("🫁 Welcome to ToxPredict")
-    st.markdown("""
-    **Advanced Computational Toxicology at your fingertips.**
     
-    In the modern era of pharmaceutical development, identifying adverse effects early in the drug discovery pipeline is paramount. **ToxPredict** leverages state-of-the-art machine learning algorithms to evaluate the pulmonary toxicity of chemical compounds instantaneously.
+    with st.container():
+        st.markdown("### Advanced Computational Toxicology")
+        st.write("In the modern era of pharmaceutical development, identifying adverse effects early in the drug discovery pipeline is paramount. **ToxPredict** leverages state-of-the-art machine learning algorithms to evaluate the pulmonary toxicity of chemical compounds instantaneously.")
+
+    st.markdown("---")
     
-    ### Key Features
-    - ⚡ **Instant Analysis:** Evaluate compounds in milliseconds using optimized XGBoost trees.
-    - 🔬 **Molecular Precision:** Calculates exact Morgan Fingerprints and structural heuristics.
-    - 📊 **Explainable AI:** Understand the 'why' behind every prediction with SHAP values.
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.info("⚡ **Instant Analysis**\n\nEvaluate compounds in milliseconds using optimized XGBoost trees.")
+    with col2:
+        st.success("🔬 **Molecular Precision**\n\nCalculates exact Morgan Fingerprints and structural heuristics.")
+    with col3:
+        st.warning("📊 **Explainable AI**\n\nUnderstand the 'why' behind every prediction with SHAP values.")
+
+    st.markdown("---")
     
-    Designed for researchers, computational chemists, and healthcare professionals, our platform bridges the gap between complex biochemical interactions and actionable safety insights.
-    """)
+    st.markdown("### Our Analysis Pipeline")
+    p_col1, p_col2, p_col3, p_col4 = st.columns(4)
+    p_col1.metric("Step 1", "Data Input", delta="SMILES")
+    p_col2.metric("Step 2", "Extraction", delta="Features")
+    p_col3.metric("Step 3", "Inference", delta="XGBoost")
+    p_col4.metric("Step 4", "Explain", delta="SHAP")
+
     st.info("👈 Navigate to the **Dashboard** to analyze a drug.")
 
 elif page == "Dashboard":
@@ -83,21 +98,28 @@ elif page == "Dashboard":
                 result = predict_toxicity(smiles)
                 explanation_text, shap_values = explain_prediction(result['features'], result['risk_category'])
             
-            # Display main metrics
-            rc_col, prob_col, conf_col = st.columns(3)
+            # Result layout: Image and Metrics
+            res_col1, res_col2 = st.columns([1, 2])
             
-            # Color coding
-            risk = result['risk_category']
-            color = "red" if risk == "HIGH RISK" else "orange" if risk == "MEDIUM RISK" else "green"
-            
-            with rc_col:
+            with res_col1:
+                st.markdown("**Molecular Structure**")
+                mol = Chem.MolFromSmiles(smiles)
+                if mol:
+                    img = Draw.MolToImage(mol, size=(300, 300))
+                    st.image(img, use_container_width=True)
+                else:
+                    st.warning("Structure not available")
+
+            with res_col2:
+                # Color coding
+                risk = result['risk_category']
+                color = "red" if risk == "HIGH RISK" else "orange" if risk == "MEDIUM RISK" else "green"
+                
                 st.markdown(f"**Risk Category**")
                 st.markdown(f"<h3 style='color: {color};'>{risk}</h3>", unsafe_allow_html=True)
                 
-            with prob_col:
                 st.metric("Toxicity Probability", f"{result['probability']:.1%}")
                 
-            with conf_col:
                 conf = result['confidence_score']
                 st.metric("Confidence Score", f"{conf:.1f}%", help="Based on molecular similarity to training data")
 
@@ -126,26 +148,41 @@ elif page == "Dashboard":
     elif predict_btn:
         st.warning("Please enter a valid drug name.")
 
+elif page == "Model Performance":
+    st.title("📊 Model Performance Comparison")
+    st.markdown("Comparing various machine learning architectures for toxicity prediction.")
+    
+    if os.path.exists("frontend/model_comparison.png"):
+        st.image("frontend/model_comparison.png", use_container_width=True)
+        st.markdown("""
+        ### Benchmark Results
+        We trained a suite of state-of-the-art models on our curated dataset. **Random Forest** and **Extra Trees** 
+        yielded the highest ROC AUC, making them exceptionally reliable for discriminating between toxic and safe compounds.
+        """)
+    else:
+        st.warning("Performance graph not found. Please run the training script.")
+
 elif page == "About":
     st.title("📖 About the Science")
-    st.markdown("""
-    ### The Challenge of Pulmonary Toxicity
-    Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.
+    
+    with st.expander("The Challenge of Pulmonary Toxicity", expanded=True):
+        st.write("Drug-induced pulmonary toxicity is a severe, sometimes fatal, complication of certain medications (e.g., chemotherapeutics like Bleomycin or anti-arrhythmics like Amiodarone). Because the lung is highly vascularized and exposed to high concentrations of oxygen, it is uniquely susceptible to oxidative stress and toxic accumulation. Identifying these risks traditionally required costly and time-consuming in vivo trials.")
 
-    ### Our Methodology
-    ToxPredict shifts the paradigm by utilizing an **XGBoost machine learning architecture** trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a **Morgan Fingerprint**, the model can "see" the structural motifs that historically correlate with lung damage.
+    with st.expander("Our Methodology", expanded=True):
+        st.write("ToxPredict shifts the paradigm by utilizing an **XGBoost machine learning architecture** trained on a heavily curated dataset of FDA-approved drugs. By converting the chemical structure of a drug into a mathematical representation known as a 'Morgan Fingerprint', the model can 'see' the structural motifs that historically correlate with lung damage.")
 
-    ### Key Physicochemical Descriptors
-    Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:
-    - **Molecular Weight:** Influences tissue penetration and accumulation rates.
-    - **LogP (Lipophilicity):** High lipophilicity often correlates with deeper cellular membrane permeation.
-    - **Topological Polar Surface Area (TPSA):** Helps predict transport across biological barriers.
-    - **Number of Rotatable Bonds:** A measure of molecular flexibility.
-    - **Hydrogen Bond Donors/Acceptors:** Crucial for understanding target binding affinity.
+    with st.expander("Key Physicochemical Descriptors", expanded=True):
+        st.write("Alongside structural fingerprints, our algorithm calculates key thermodynamic and spatial properties of the molecule:")
+        st.markdown("""
+        - **Molecular Weight:** Influences tissue penetration and accumulation rates.
+        - **LogP (Lipophilicity):** High lipophilicity often correlates with deeper cellular membrane permeation.
+        - **Topological Polar Surface Area (TPSA):** Helps predict transport across biological barriers.
+        - **Number of Rotatable Bonds:** A measure of molecular flexibility.
+        - **Hydrogen Bond Donors/Acceptors:** Crucial for understanding target binding affinity.
+        """)
 
-    ### Technology Stack & Explainability
-    The backend is powered by **Python, FastAPI, and RDKit** for high-performance chemoinformatics. The predictive engine relies on **scikit-learn and XGBoost**. To avoid the "black box" problem of AI, we integrated **SHAP (SHapley Additive exPlanations)**, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.
-    """)
+    with st.expander("Technology Stack & Explainability", expanded=True):
+        st.write("The backend is powered by **Python, FastAPI, and RDKit** for high-performance chemoinformatics. The predictive engine relies on **scikit-learn and XGBoost**. To avoid the 'black box' problem of AI, we integrated **SHAP (SHapley Additive exPlanations)**, ensuring that every risk assessment comes with a transparent breakdown of exactly which molecular features drove the algorithm's decision.")
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Developed for Hackathon | Powered by XGBoost & RDKit")

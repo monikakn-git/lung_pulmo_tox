@@ -10,6 +10,10 @@ from pydantic import BaseModel
 import pandas as pd
 from predict import predict_toxicity
 from explain import explain_prediction
+from rdkit import Chem
+from rdkit.Chem import Draw
+import base64
+from io import BytesIO
 
 app = FastAPI(title="Pulmonary Toxicity Predictor API")
 
@@ -32,6 +36,7 @@ class PredictResponse(BaseModel):
     probability: float
     confidence_score: float
     explanation: str
+    image_base64: str
 
 @app.post("/api/predict", response_model=PredictResponse)
 def predict_endpoint(request: PredictRequest):
@@ -57,13 +62,23 @@ def predict_endpoint(request: PredictRequest):
         # Get the human-readable SHAP explanation
         explanation_text, _ = explain_prediction(result['features'], result['risk_category'])
         
+        # Generate Image
+        mol = Chem.MolFromSmiles(smiles)
+        img_base64 = ""
+        if mol:
+            buffered = BytesIO()
+            img = Draw.MolToImage(mol, size=(300, 300))
+            img.save(buffered, format="PNG")
+            img_base64 = base64.b64encode(buffered.getvalue()).decode()
+            
         return PredictResponse(
             drug_name=actual_drug_name,
             smiles=smiles,
             risk_category=result['risk_category'],
             probability=float(result['probability']),
             confidence_score=float(result['confidence_score']),
-            explanation=explanation_text
+            explanation=explanation_text,
+            image_base64=img_base64
         )
         
     except HTTPException:
