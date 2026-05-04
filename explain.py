@@ -38,11 +38,23 @@ def explain_prediction(features_df, risk_category):
     
     if IS_TREE:
         shap_values_obj = explainer(features_df)
-        values = shap_values_obj.values[0]
+        values = shap_values_obj.values
+        # Handle cases where SHAP returns values for both classes (e.g., RandomForest)
+        if len(values.shape) == 3: # (samples, features, classes)
+            values = values[0, :, 1]
+        else:
+            values = values[0]
     else:
         # KernelExplainer returns a list or array
         shap_values = explainer.shap_values(features_df)
-        values = shap_values[0] if isinstance(shap_values, list) else shap_values[0]
+        if isinstance(shap_values, list):
+            # For multi-class, pick class 1
+            values = shap_values[1][0] if len(shap_values) > 1 else shap_values[0][0]
+        else:
+            if len(shap_values.shape) == 3:
+                values = shap_values[0, :, 1]
+            else:
+                values = shap_values[0]
         
     feature_names = features_df.columns
     
