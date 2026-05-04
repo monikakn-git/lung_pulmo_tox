@@ -1,6 +1,6 @@
 // Configuration: Point this to your FastAPI backend URL.
 // When testing locally with FastAPI, use localhost:8000
-const API_URL = "http://localhost:8000/api/predict";
+const API_URL = "https://lung-pulmo-tox.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("predict-form");
