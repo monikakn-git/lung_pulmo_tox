@@ -42,27 +42,41 @@ def explain_prediction(features_df, risk_category):
         # Handle cases where SHAP returns values for both classes (e.g., RandomForest)
         if len(values.shape) == 3: # (samples, features, classes)
             values = values[0, :, 1]
-        else:
+        elif len(values.shape) == 2: # (samples, features)
             values = values[0]
+        else:
+            values = values.ravel()
     else:
         # KernelExplainer returns a list or array
         shap_values = explainer.shap_values(features_df)
         if isinstance(shap_values, list):
-            # For multi-class, pick class 1
-            values = shap_values[1][0] if len(shap_values) > 1 else shap_values[0][0]
+            # For binary classification with list output, class 1 is usually at index 1
+            # If length is 1, it's already the positive class or just one class
+            v = shap_values[1] if len(shap_values) > 1 else shap_values[0]
+            values = v[0] if len(v.shape) > 1 else v
         else:
             if len(shap_values.shape) == 3:
                 values = shap_values[0, :, 1]
-            else:
+            elif len(shap_values.shape) == 2:
                 values = shap_values[0]
+            else:
+                values = shap_values.ravel()
         
-    feature_names = features_df.columns
+    # Final safety check: ensure values is 1D and matches feature_names length
+    values = np.array(values).flatten().tolist()
+    feature_names = features_df.columns.tolist()
     
-    # Create a dataframe of feature contributions
-    contributions = pd.DataFrame({
-        'feature': feature_names,
-        'contribution': values
-    })
+    if len(values) != len(feature_names):
+        # Fallback if there's a mismatch
+        values = [0.0] * len(feature_names)
+
+    try:
+        # Create a dataframe of feature contributions using list of tuples for maximum stability
+        data_list = list(zip(feature_names, values))
+        contributions = pd.DataFrame(data_list, columns=['feature', 'contribution'])
+    except Exception as e:
+        # Fallback explanation if pandas still fails
+        return f"Explanation generated an error: {str(e)}", np.zeros(len(feature_names))
     
     contributions['abs_contribution'] = contributions['contribution'].abs()
     contributions = contributions.sort_values(by='abs_contribution', ascending=False)

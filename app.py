@@ -128,11 +128,21 @@ elif page == "Dashboard":
             st.markdown("**AI Explanation:**")
             st.info(explanation_text)
             
-            with st.expander("Show Detailed Feature Importance (SHAP)"):
-                st.markdown("This plot shows the features (Morgan fingerprint bits & properties) that drove the prediction.")
-                fig, ax = plt.subplots(figsize=(6, 4))
-                shap.plots.waterfall(shap_values[0], show=False)
-                st.pyplot(fig, bbox_inches='tight')
+            with st.expander("Show Detailed Feature Importance"):
+                st.markdown("This plot shows the top 10 features that drove this specific prediction.")
+                
+                # Get top features from the contributions (we'll re-calculate briefly for the plot)
+                feature_names = result['features'].columns
+                contrib_df = pd.DataFrame({'feature': feature_names, 'val': shap_values})
+                contrib_df['abs_val'] = contrib_df['val'].abs()
+                top_10 = contrib_df.sort_values('abs_val', ascending=False).head(10)
+                
+                fig, ax = plt.subplots(figsize=(8, 5))
+                colors = ['#ff2a5f' if x > 0 else '#00ffa2' for x in top_10['val']]
+                ax.barh(top_10['feature'], top_10['val'], color=colors)
+                ax.set_xlabel('SHAP Value (Contribution)')
+                ax.set_title('Top 10 Feature Contributions')
+                st.pyplot(fig)
                 
         except Exception as e:
             st.error(f"⚠️ An error occurred: {e}")
