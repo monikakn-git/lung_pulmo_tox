@@ -1,0 +1,9 @@
+pandas
+scikit-learn
+xgboost
+shap
+streamlit
+rdkit
+joblib
+fastapi
+uvicorn

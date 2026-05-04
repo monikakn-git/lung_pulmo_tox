@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulmonary Toxicity Predictor</title>
+    <meta name="description" content="AI-powered tool to predict lung toxicity from molecular SMILES strings.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+        <header>
+            <div class="icon">🫁</div>
+            <h1>Tox<span class="highlight">Predict</span></h1>
+            <p>Determine the likelihood of pulmonary toxicity directly from a molecule's SMILES string.</p>
+        </header>
+
+        <section class="input-section glass-panel">
+            <form id="predict-form">
+                <div class="input-group">
+                    <label for="smiles-input">SMILES String</label>
+                    <input type="text" id="smiles-input" placeholder="e.g. CC(=O)OC1=CC=CC=C1C(=O)O" required autocomplete="off">
+                </div>
+                <button type="submit" id="predict-btn">
+                    <span class="btn-text">Analyze Structure</span>
+                    <div class="spinner hidden"></div>
+                </button>
+            </form>
+            <div id="error-message" class="error-message hidden"></div>
+        </section>
+
+        <section id="result-section" class="result-section hidden">
+            <h2 class="section-title">Analysis Results</h2>
+            
+            <div class="cards-grid">
+                <div class="glass-card risk-card">
+                    <h3>Risk Category</h3>
+                    <div id="risk-value" class="metric-value">--</div>
+                </div>
+                
+                <div class="glass-card">
+                    <h3>Toxicity Probability</h3>
+                    <div id="prob-value" class="metric-value text-white">--</div>
+                </div>
+
+                <div class="glass-card">
+                    <h3>Confidence Score</h3>
+                    <div id="conf-value" class="metric-value text-white">--</div>
+                    <p class="helper-text">Based on structural similarity</p>
+                </div>
+            </div>
+
+            <div class="explanation-panel glass-card">
+                <h3>AI Explanation</h3>
+                <p id="explanation-text">--</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
