@@ -1,3 +1,4 @@
+<!-- build: v2.1 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,21 @@
     <meta name="description" content="AI-powered tool to predict lung toxicity from molecular SMILES strings.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#00ffa2',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#00ffa2',
+                lineColor: '#3b82f6',
+                secondaryColor: '#1e293b',
+                tertiaryColor: '#0f172a'
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="background-effects">
@@ -42,6 +58,12 @@
                 <div class="abstract-graphic">
                     <div class="glass-orb"></div>
                     <div class="glass-orb orb-small"></div>
+                    <div class="code-snippet">
+                        <code># Full Feature Pipeline</code><br>
+                        <code>fp = morgan_fp(smiles, radius=2, nBits=2048)</code><br>
+                        <code># Stacking Ensemble Prediction</code><br>
+                        <code>prob = ensemble.predict_proba([fp])[0][1]</code>
+                    </div>
                 </div>
             </div>
         </section>
@@ -124,6 +146,15 @@
                     </button>
                 </form>
                 <div id="error-message" class="error-message hidden"></div>
+                
+                <div class="quick-examples mt-6">
+                    <p class="helper-text mb-2">Try these examples:</p>
+                    <div class="example-chips">
+                        <button class="chip chip-high" onclick="fillExample('Amiodarone')">🔴 Amiodarone (High Risk)</button>
+                        <button class="chip chip-med" onclick="fillExample('Methotrexate')">🟡 Methotrexate (Med Risk)</button>
+                        <button class="chip chip-low" onclick="fillExample('Aspirin')">🟢 Aspirin (Low Risk)</button>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -157,7 +188,7 @@
                                     <div id="res-prob-value" class="mid-value">--</div>
                                 </div>
                                 <div class="sub-metric">
-                                    <label>Confidence</label>
+                                    <label>Structural Match</label>
                                     <div id="res-conf-value" class="mid-value">--</div>
                                 </div>
                             </div>
@@ -212,52 +243,23 @@
         
         <div class="container-inner">
             <div class="glass-panel text-center">
-                <h3>Benchmark Results</h3>
-                <p class="mt-4 mb-6">
-                    We trained a suite of state-of-the-art models on our curated dataset. <strong>Random Forest</strong> and <strong>Extra Trees</strong> 
-                    yielded the highest ROC AUC, making them exceptionally reliable for discriminating between toxic and safe compounds.
-                </p>
-                <div class="graph-container">
-                    <img src="model_comparison.png" alt="Model Comparison Graph" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--card-border); margin-bottom: 2rem;">
-                </div>
-
-                <div class="metrics-table-container">
-                    <table class="metrics-table">
-                        <thead>
-                            <tr>
-                                <th>Architecture</th>
-                                <th>ROC AUC</th>
-                                <th>Accuracy</th>
-                                <th>F1 Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Random Forest</td>
-                                <td>0.89</td>
-                                <td>0.86</td>
-                                <td>0.85</td>
-                            </tr>
-                            <tr>
-                                <td>XGBoost</td>
-                                <td>0.87</td>
-                                <td>0.85</td>
-                                <td>0.83</td>
-                            </tr>
-                            <tr>
-                                <td>Extra Trees</td>
-                                <td>0.88</td>
-                                <td>0.85</td>
-                                <td>0.84</td>
-                            </tr>
-                            <tr>
-                                <td>Neural Network</td>
-                                <td>0.82</td>
-                                <td>0.79</td>
-                                <td>0.78</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="performance-gallery">
+                    <div class="gallery-item full-width">
+                        <label>Architecture Benchmarking</label>
+                        <img src="final_grouped_bar.png" alt="Model Comparison Bar Chart">
+                    </div>
+                    <div class="gallery-item">
+                        <label>Final Model Metrics</label>
+                        <img src="final_table.png" alt="Performance Metrics Table">
+                    </div>
+                    <div class="gallery-item">
+                        <label>Receiver Operating Characteristic</label>
+                        <img src="final_roc_curve.png" alt="ROC Curve">
+                    </div>
+                    <div class="gallery-item">
+                        <label>Confusion Matrix</label>
+                        <img src="final_confusion_matrix.png" alt="Confusion Matrix">
+                    </div>
                 </div>
             </div>
         </div>
@@ -278,13 +280,40 @@
                 </div>
 
                 <div class="glass-card about-box">
-                    <h3>Dataset Provenance</h3>
-                    <p>Our models are trained on a curated dataset of 2,400+ compounds aggregated from <strong>PneumoTox</strong>, <strong>FAERS</strong> (FDA Adverse Event Reporting System), and <strong>SIDER</strong>. All labels are cross-verified against clinical case reports to ensure the highest data integrity.</p>
+                    <h3>Methodology & Training</h3>
+                    <p>Our automated pipeline transforms raw SMILES into a high-dimensional feature space optimized for toxicity detection.</p>
+                    <div class="mermaid">
+                        graph LR
+                            A[Chemical SMILES] --> B[RDKit Engine]
+                            B --> C1[Morgan Fingerprints<br/>(2048-bit)]
+                            B --> C2[Physicochemical<br/>Descriptors]
+                            C1 --> D[Feature Scaling]
+                            C2 --> D
+                            D --> E[Ensemble Input]
+                            style A fill:#1e293b,stroke:#00ffa2
+                            style E fill:#00ffa2,stroke:#00ffa2,color:#000
+                    </div>
                 </div>
                 
                 <div class="glass-card about-box">
-                    <h3>The Ensemble Stack</h3>
-                    <p>ToxPredict utilizes a **Stacking Ensemble** where predictions from Random Forest and Extra Trees are dynamically weighted. By converting structures into <strong>2048-bit Morgan Fingerprints</strong>, the model identifies specific structural motifs that correlate with clinical lung damage.</p>
+                    <h3>System Architecture</h3>
+                    <p>ToxPredict utilizes a **Stacked Generalization** approach to minimize variance and maximize predictive robustness.</p>
+                    <div class="mermaid">
+                        graph TD
+                            In[Input Features] --> RF[Random Forest]
+                            In --> ET[Extra Trees]
+                            In --> ANN[Neural Network]
+                            
+                            RF --> Meta[XGBoost Meta-Learner]
+                            ET --> Meta
+                            ANN --> Meta
+                            
+                            Meta --> Out[Final Risk Category]
+                            Meta --> Expl[SHAP Explanations]
+                            
+                            style Meta fill:#00ffa2,stroke:#00ffa2,color:#000
+                            style Out fill:#3b82f6,stroke:#3b82f6
+                    </div>
                 </div>
                 
                 <div class="glass-card about-box wide">

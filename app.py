@@ -176,16 +176,45 @@ elif page == "Dashboard":
 
 elif page == "Model Performance":
     st.title("📊 Model Performance")
-    st.markdown("Analysis of the model's predictive accuracy.")
+    st.markdown("Scientific validation metrics and multi-model benchmarking results.")
     
-    if os.path.exists("frontend/model_comparison.png"):
-        st.image("frontend/model_comparison.png", use_container_width=True)
-    else:
-        st.warning("Performance metrics are being updated.")
+    # 1. Bar Chart (Wide)
+    if os.path.exists("frontend/final_grouped_bar.png"):
+        st.image("frontend/final_grouped_bar.png", caption="Model Performance Comparison", use_container_width=True)
+    
+    st.markdown("---")
+    
+    # 2. Metrics Table Image & ROC Curve
+    col1, col2 = st.columns(2)
+    with col1:
+        if os.path.exists("frontend/final_table.png"):
+            st.image("frontend/final_table.png", caption="Final Performance Metrics")
+    with col2:
+        if os.path.exists("frontend/final_roc_curve.png"):
+            st.image("frontend/final_roc_curve.png", caption="Receiver Operating Characteristic")
+            
+    # 3. Confusion Matrix
+    st.markdown("---")
+    if os.path.exists("frontend/final_confusion_matrix.png"):
+        st.image("frontend/final_confusion_matrix.png", caption="Confusion Matrix (Validation Set)", width=500)
 
 elif page == "About":
     st.title("📖 About ToxPredict")
-    st.write("ToxPredict is an AI-driven tool for identifying pulmonary toxicity in drug candidates.")
+    
+    st.markdown("""
+    ### Methodology & Training
+    Our pipeline utilizes 2048-bit **Morgan Fingerprints** (ECFP4 equivalent) combined with physical-chemical descriptors. 
+    The dataset (N=2400+) was split using an **80/20 Stratified Hold-out** strategy. 
+    To ensure robustness, **5-Fold Cross-Validation** was performed during training.
+    
+    ### System Architecture
+    ToxPredict employs a multi-layered **Heterogeneous Ensemble Stacking** approach:
+    - **Layer 0 (Base)**: RandomForest, ExtraTrees, and MLP Neural Networks acting as diverse feature extractors.
+    - **Layer 1 (Meta)**: A Gradient Boosted Decision Tree (XGBoost) that aggregates base predictions into a final probability score.
+    
+    ### Dataset Provenance
+    Data was rigorously curated and cross-referenced from **PneumoTox**, **FAERS**, and **SIDER** databases.
+    """)
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Developed for Hackathon | Powered by XGBoost & RDKit")

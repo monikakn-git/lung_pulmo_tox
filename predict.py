@@ -18,6 +18,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def load_artifacts():
     global MODEL, ALL_MODELS, SCALER, REFERENCE_DATA
     if MODEL is None:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         try:
             MODEL = joblib.load(os.path.join(BASE_DIR, "model.joblib"))
             ALL_MODELS = joblib.load(os.path.join(BASE_DIR, "all_models.joblib"))
