@@ -176,31 +176,27 @@ elif page == "Dashboard":
 
 elif page == "Model Performance":
     st.title("📊 Model Performance")
-    st.markdown("Detailed evaluation of the Stacking Ensemble and benchmarked architectures.")
+    st.markdown("Scientific validation metrics and multi-model benchmarking results.")
     
-    # 1. Comparison Bar Chart
-    if os.path.exists("frontend/model_comparison.png"):
-        st.image("frontend/model_comparison.png", caption="Model Comparison (AUC & Accuracy)", use_container_width=True)
+    # 1. Bar Chart (Wide)
+    if os.path.exists("frontend/final_grouped_bar.png"):
+        st.image("frontend/final_grouped_bar.png", caption="Model Performance Comparison", use_container_width=True)
     
-    # 2. Metrics Table
-    st.markdown("### Benchmark Metrics")
-    metrics_data = {
-        "Architecture": ["XGBoost", "Random Forest", "Extra Trees", "Neural Network"],
-        "ROC AUC": [0.84, 0.84, 0.83, 0.82],
-        "Accuracy": [0.80, 0.80, 0.78, 0.79],
-        "F1 Score": [0.83, 0.83, 0.81, 0.78]
-    }
-    st.table(pd.DataFrame(metrics_data))
+    st.markdown("---")
     
-    # 3. Validation Deep-Dive
-    st.markdown("### Validation Visuals")
+    # 2. Metrics Table Image & ROC Curve
     col1, col2 = st.columns(2)
     with col1:
+        if os.path.exists("frontend/final_table.png"):
+            st.image("frontend/final_table.png", caption="Final Performance Metrics")
+    with col2:
         if os.path.exists("frontend/final_roc_curve.png"):
             st.image("frontend/final_roc_curve.png", caption="Receiver Operating Characteristic")
-    with col2:
-        if os.path.exists("frontend/final_confusion_matrix.png"):
-            st.image("frontend/final_confusion_matrix.png", caption="Confusion Matrix (Validation Set)")
+            
+    # 3. Confusion Matrix
+    st.markdown("---")
+    if os.path.exists("frontend/final_confusion_matrix.png"):
+        st.image("frontend/final_confusion_matrix.png", caption="Confusion Matrix (Validation Set)", width=500)
 
 elif page == "About":
     st.title("📖 About ToxPredict")

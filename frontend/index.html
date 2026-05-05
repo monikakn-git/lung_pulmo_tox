@@ -227,64 +227,22 @@
         
         <div class="container-inner">
             <div class="glass-panel text-center">
-                <h3>Benchmark Results</h3>
-                <p class="mt-4 mb-6">
-                    We trained a suite of state-of-the-art models on our curated dataset. <strong>Random Forest</strong> and <strong>Extra Trees</strong> 
-                    yielded the highest ROC AUC, making them exceptionally reliable for discriminating between toxic and safe compounds.
-                </p>
-                <div class="graph-container">
-                    <img src="model_comparison.png" alt="Model Comparison Graph" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--card-border); margin-bottom: 2rem;">
-                </div>
-
-                <div class="metrics-table-container">
-                    <table class="metrics-table">
-                        <thead>
-                            <tr>
-                                <th>Architecture</th>
-                                <th>ROC AUC</th>
-                                <th>Accuracy</th>
-                                <th>F1 Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>XGBoost</td>
-                                <td>0.84</td>
-                                <td>0.80</td>
-                                <td>0.83</td>
-                            </tr>
-                            <tr>
-                                <td>Random Forest</td>
-                                <td>0.84</td>
-                                <td>0.80</td>
-                                <td>0.83</td>
-                            </tr>
-                            <tr>
-                                <td>Extra Trees</td>
-                                <td>0.83</td>
-                                <td>0.78</td>
-                                <td>0.81</td>
-                            </tr>
-                            <tr>
-                                <td>Neural Network</td>
-                                <td>0.82</td>
-                                <td>0.79</td>
-                                <td>0.78</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="visuals-grid mt-10">
-                    <div class="visual-card">
-                        <label>Receiver Operating Characteristic (ROC)</label>
-                        <img src="final_roc_curve.png" alt="ROC Curve" class="model-graph">
-                        <p class="graph-caption">Area Under Curve (AUC) of 0.84 indicates high discriminatory power between toxic and safe compounds.</p>
+                <div class="performance-gallery">
+                    <div class="gallery-item full-width">
+                        <label>Architecture Benchmarking</label>
+                        <img src="final_grouped_bar.png" alt="Model Comparison Bar Chart">
                     </div>
-                    <div class="visual-card">
+                    <div class="gallery-item">
+                        <label>Final Model Metrics</label>
+                        <img src="final_table.png" alt="Performance Metrics Table">
+                    </div>
+                    <div class="gallery-item">
+                        <label>Receiver Operating Characteristic</label>
+                        <img src="final_roc_curve.png" alt="ROC Curve">
+                    </div>
+                    <div class="gallery-item">
                         <label>Confusion Matrix</label>
-                        <img src="final_confusion_matrix.png" alt="Confusion Matrix" class="model-graph">
-                        <p class="graph-caption">The matrix demonstrates high sensitivity in identifying positive toxicity cases, which is critical for drug safety screening.</p>
+                        <img src="final_confusion_matrix.png" alt="Confusion Matrix">
                     </div>
                 </div>
             </div>

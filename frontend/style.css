@@ -1160,3 +1160,51 @@ input:focus {
     }
 }
 
+
+/* Performance Gallery */
+.performance-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.gallery-item {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.gallery-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.gallery-item label {
+    display: block;
+    color: var(--accent-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1rem;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+@media (max-width: 900px) {
+    .performance-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
