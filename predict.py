@@ -5,6 +5,8 @@ from rdkit import Chem
 from rdkit.Chem import AllChem, DataStructs
 from feature_engineering import get_features_for_smiles
 
+import os
+
 # Global variables for caching
 MODEL = None
 ALL_MODELS = None
@@ -14,11 +16,12 @@ REFERENCE_DATA = None
 def load_artifacts():
     global MODEL, ALL_MODELS, SCALER, REFERENCE_DATA
     if MODEL is None:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         try:
-            MODEL = joblib.load("model.joblib")
-            ALL_MODELS = joblib.load("all_models.joblib")
-            SCALER = joblib.load("scaler.joblib")
-            REFERENCE_DATA = joblib.load("reference_data.joblib")
+            MODEL = joblib.load(os.path.join(base_dir, "model.joblib"))
+            ALL_MODELS = joblib.load(os.path.join(base_dir, "all_models.joblib"))
+            SCALER = joblib.load(os.path.join(base_dir, "scaler.joblib"))
+            REFERENCE_DATA = joblib.load(os.path.join(base_dir, "reference_data.joblib"))
         except FileNotFoundError:
             return False
     return True
@@ -129,7 +132,8 @@ def predict_all_models(smiles):
     nearest_label = "Unknown"
     if nearest_idx != -1:
         # Cross reference with data.csv to get the name
-        df = pd.read_csv("data.csv")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        df = pd.read_csv(os.path.join(base_dir, "data.csv"))
         match = df[df['smiles'] == train_smiles[nearest_idx]]
         if not match.empty:
             nearest_drug = match.iloc[0]['drug_name']

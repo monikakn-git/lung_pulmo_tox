@@ -149,9 +149,10 @@ def train_model():
     
     # Save the best model, all models and reference data
     print("\nSaving best model and artifacts...")
-    joblib.dump(best_model, "model.joblib")
-    joblib.dump(models, "all_models.joblib")
-    joblib.dump(scaler, "scaler.joblib")
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    joblib.dump(best_model, os.path.join(base_dir, "model.joblib"), protocol=5)
+    joblib.dump(models, os.path.join(base_dir, "all_models.joblib"), protocol=5)
+    joblib.dump(scaler, os.path.join(base_dir, "scaler.joblib"), protocol=5)
     
     reference_data = {
         'X_train': X_train,
@@ -159,7 +160,7 @@ def train_model():
         'y_train': y_train,
         'model_name': best_name
     }
-    joblib.dump(reference_data, "reference_data.joblib")
+    joblib.dump(reference_data, os.path.join(base_dir, "reference_data.joblib"), protocol=5)
     print("Training complete.")
 
 if __name__ == "__main__":

@@ -9,8 +9,10 @@ IS_TREE = True
 def get_explainer():
     global EXPLAINER, IS_TREE
     if EXPLAINER is None:
-        model = joblib.load("model.joblib")
-        reference_data = joblib.load("reference_data.joblib")
+        import os
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        model = joblib.load(os.path.join(base_dir, "model.joblib"))
+        reference_data = joblib.load(os.path.join(base_dir, "reference_data.joblib"))
         
         # Check if model is tree-based
         model_name = reference_data.get("model_name", "")
