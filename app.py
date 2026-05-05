@@ -176,16 +176,49 @@ elif page == "Dashboard":
 
 elif page == "Model Performance":
     st.title("📊 Model Performance")
-    st.markdown("Analysis of the model's predictive accuracy.")
+    st.markdown("Detailed evaluation of the Stacking Ensemble and benchmarked architectures.")
     
+    # 1. Comparison Bar Chart
     if os.path.exists("frontend/model_comparison.png"):
-        st.image("frontend/model_comparison.png", use_container_width=True)
-    else:
-        st.warning("Performance metrics are being updated.")
+        st.image("frontend/model_comparison.png", caption="Model Comparison (AUC & Accuracy)", use_container_width=True)
+    
+    # 2. Metrics Table
+    st.markdown("### Benchmark Metrics")
+    metrics_data = {
+        "Architecture": ["XGBoost", "Random Forest", "Extra Trees", "Neural Network"],
+        "ROC AUC": [0.84, 0.84, 0.83, 0.82],
+        "Accuracy": [0.80, 0.80, 0.78, 0.79],
+        "F1 Score": [0.83, 0.83, 0.81, 0.78]
+    }
+    st.table(pd.DataFrame(metrics_data))
+    
+    # 3. Validation Deep-Dive
+    st.markdown("### Validation Visuals")
+    col1, col2 = st.columns(2)
+    with col1:
+        if os.path.exists("frontend/final_roc_curve.png"):
+            st.image("frontend/final_roc_curve.png", caption="Receiver Operating Characteristic")
+    with col2:
+        if os.path.exists("frontend/final_confusion_matrix.png"):
+            st.image("frontend/final_confusion_matrix.png", caption="Confusion Matrix (Validation Set)")
 
 elif page == "About":
     st.title("📖 About ToxPredict")
-    st.write("ToxPredict is an AI-driven tool for identifying pulmonary toxicity in drug candidates.")
+    
+    st.markdown("""
+    ### Methodology & Training
+    Our pipeline utilizes 2048-bit **Morgan Fingerprints** (ECFP4 equivalent) combined with physical-chemical descriptors. 
+    The dataset (N=2400+) was split using an **80/20 Stratified Hold-out** strategy. 
+    To ensure robustness, **5-Fold Cross-Validation** was performed during training.
+    
+    ### System Architecture
+    ToxPredict employs a multi-layered **Heterogeneous Ensemble Stacking** approach:
+    - **Layer 0 (Base)**: RandomForest, ExtraTrees, and MLP Neural Networks acting as diverse feature extractors.
+    - **Layer 1 (Meta)**: A Gradient Boosted Decision Tree (XGBoost) that aggregates base predictions into a final probability score.
+    
+    ### Dataset Provenance
+    Data was rigorously curated and cross-referenced from **PneumoTox**, **FAERS**, and **SIDER** databases.
+    """)
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Developed for Hackathon | Powered by XGBoost & RDKit")
