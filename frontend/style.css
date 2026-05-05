@@ -1208,3 +1208,17 @@ input:focus {
     }
 }
 
+
+/* Mermaid Diagram Styling */
+.mermaid {
+    background: transparent !important;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+

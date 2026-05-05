@@ -8,6 +8,21 @@
     <meta name="description" content="AI-powered tool to predict lung toxicity from molecular SMILES strings.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#00ffa2',
+                primaryTextColor: '#fff',
+                primaryBorderColor: '#00ffa2',
+                lineColor: '#3b82f6',
+                secondaryColor: '#1e293b',
+                tertiaryColor: '#0f172a'
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="background-effects">
@@ -266,16 +281,39 @@
 
                 <div class="glass-card about-box">
                     <h3>Methodology & Training</h3>
-                    <p>Our pipeline utilizes 2048-bit <strong>Morgan Fingerprints</strong> (ECFP4 equivalent) combined with physical-chemical descriptors. The dataset (N=2400+) was split using an <strong>80/20 Stratified Hold-out</strong> strategy. To ensure robustness, <strong>5-Fold Cross-Validation</strong> was performed during the training phase to optimize hyperparameters across all architectural layers.</p>
+                    <p>Our automated pipeline transforms raw SMILES into a high-dimensional feature space optimized for toxicity detection.</p>
+                    <div class="mermaid">
+                        graph LR
+                            A[Chemical SMILES] --> B[RDKit Engine]
+                            B --> C1[Morgan Fingerprints<br/>(2048-bit)]
+                            B --> C2[Physicochemical<br/>Descriptors]
+                            C1 --> D[Feature Scaling]
+                            C2 --> D
+                            D --> E[Ensemble Input]
+                            style A fill:#1e293b,stroke:#00ffa2
+                            style E fill:#00ffa2,stroke:#00ffa2,color:#000
+                    </div>
                 </div>
                 
                 <div class="glass-card about-box">
                     <h3>System Architecture</h3>
-                    <p>ToxPredict employs a multi-layered <strong>Heterogeneous Ensemble Stacking</strong> approach:</p>
-                    <ul style="list-style: disc; margin-left: 1.5rem; margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
-                        <li><strong>Layer 0 (Base)</strong>: RandomForest, ExtraTrees, and MLP Neural Networks acting as diverse feature extractors.</li>
-                        <li><strong>Layer 1 (Meta)</strong>: A Gradient Boosted Decision Tree (XGBoost) that aggregates base predictions into a final probability score.</li>
-                    </ul>
+                    <p>ToxPredict utilizes a **Stacked Generalization** approach to minimize variance and maximize predictive robustness.</p>
+                    <div class="mermaid">
+                        graph TD
+                            In[Input Features] --> RF[Random Forest]
+                            In --> ET[Extra Trees]
+                            In --> ANN[Neural Network]
+                            
+                            RF --> Meta[XGBoost Meta-Learner]
+                            ET --> Meta
+                            ANN --> Meta
+                            
+                            Meta --> Out[Final Risk Category]
+                            Meta --> Expl[SHAP Explanations]
+                            
+                            style Meta fill:#00ffa2,stroke:#00ffa2,color:#000
+                            style Out fill:#3b82f6,stroke:#3b82f6
+                    </div>
                 </div>
                 
                 <div class="glass-card about-box wide">
