@@ -116,4 +116,23 @@ def predict_endpoint(request: PredictRequest):
 
 @app.get("/api/health")
 def health_check():
-    return {"status": "healthy"}
+    health = {"status": "healthy", "checks": {}}
+    try:
+        import rdkit
+        health["checks"]["rdkit"] = "ok"
+    except Exception as e:
+        health["checks"]["rdkit"] = f"failed: {str(e)}"
+        health["status"] = "unhealthy"
+        
+    try:
+        from predict import load_artifacts
+        if load_artifacts():
+            health["checks"]["artifacts"] = "ok"
+        else:
+            health["checks"]["artifacts"] = "not_found"
+            health["status"] = "unhealthy"
+    except Exception as e:
+        health["checks"]["artifacts"] = f"error: {str(e)}"
+        health["status"] = "unhealthy"
+        
+    return health
