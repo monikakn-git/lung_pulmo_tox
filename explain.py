@@ -6,11 +6,14 @@ import numpy as np
 EXPLAINER = None
 IS_TREE = True
 
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def get_explainer():
     global EXPLAINER, IS_TREE
     if EXPLAINER is None:
-        model = joblib.load("model.joblib")
-        reference_data = joblib.load("reference_data.joblib")
+        model = joblib.load(os.path.join(BASE_DIR, "model.joblib"))
+        reference_data = joblib.load(os.path.join(BASE_DIR, "reference_data.joblib"))
         
         # Check if model is tree-based
         model_name = reference_data.get("model_name", "")

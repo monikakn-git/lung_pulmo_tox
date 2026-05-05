@@ -110,7 +110,8 @@ def predict_endpoint(request: PredictRequest):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal server error while processing.")
+        print(f"Prediction error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 @app.get("/api/health")
 def health_check():

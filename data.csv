@@ -49,3 +49,40 @@ Nitrogen Mustard,CN(CCCl)CCCl,1
 Sertraline,CN[C@H]1CC[C@@H](C2=CC=CC=C12)C3=CC=C(C=C3Cl)Cl,0
 Phenacyl Chloride,C1=CC=C(C=C1)C(=O)CCl,1
 Gefitinib,COC1=C(C=C2C(=C1)N=CN=C2NC3=CC(=C(C=C3)F)Cl)OCCCN4CCOCC4,1
+rosuvastatin calcium,CC(C)C1=NC(=NC(=C1C=CC(CC(CC(=O)[O-])O)O)C2=CC=C(C=C2)F)N(C)S(=O)(=O)C.CC(C)C1=NC(=NC(=C1C=CC(CC(CC(=O)[O-])O)O)C2=CC=C(C=C2)F)N(C)S(=O)(=O)C.[Ca+2],0
+aspirin,CC(=O)OC1=CC=CC=C1C(=O)O,1
+calcium,[Ca],0
+azithromycin dihydrate,CCC1C(C(C(N(CC(CC(C(C(C(C(C(=O)O1)C)OC2CC(C(C(O2)C)O)(C)OC)C)OC3C(C(CC(O3)C)N(C)C)O)(C)O)C)C)C)O)(C)O.O.O,0
+montelukast sodium,CC(C)(C1=CC=CC=C1CCC(C2=CC=CC(=C2)C=CC3=NC4=C(C=CC(=C4)Cl)C=C3)SCC5(CC5)CC(=O)[O-])O.[Na+],0
+amoxicillin,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)C,0
+atorvastatin calcium,CC(C)C1=C(C(=C(N1CCC(CC(CC(=O)[O-])O)O)C2=CC=C(C=C2)F)C3=CC=CC=C3)C(=O)NC4=CC=CC=C4.CC(C)C1=C(C(=C(N1CCC(CC(CC(=O)[O-])O)O)C2=CC=C(C=C2)F)C3=CC=CC=C3)C(=O)NC4=CC=CC=C4.[Ca+2],0
+albuterol sulfate,CC(C)(C)NCC(C1=CC(=C(C=C1)O)CO)O.CC(C)(C)NCC(C1=CC(=C(C=C1)O)CO)O.OS(=O)(=O)O,0
+pantoprazole,COC1=C(C(=NC=C1)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC(F)F)OC,0
+acetaminophen,CC(=O)NC1=CC=C(C=C1)O,0
+prednisone,CC12CC(=O)C3C(C1CCC2(C(=O)CO)O)CCC4=CC(=O)C=CC34C,0
+levothyroxine,C1=C(C=C(C(=C1I)OC2=CC(=C(C(=C2)I)O)I)I)CC(C(=O)O)N,0
+pantoprazole magnesium,COC1=C(C(=NC=C1)CS(=O)C2=NC3=C([N-]2)C=CC(=C3)OC(F)F)OC.COC1=C(C(=NC=C1)CS(=O)C2=NC3=C([N-]2)C=CC(=C3)OC(F)F)OC.[Mg+2],0
+methylprednisolone,CC1CC2C3CCC(C3(CC(C2C4(C1=CC(=O)C=C4)C)O)C)(C(=O)CO)O,0
+naproxen sodium,CC(C1=CC2=C(C=C1)C=C(C=C2)OC)C(=O)[O-].[Na+],0
+folic acid,C1=CC(=CC=C1C(=O)NC(CCC(=O)O)C(=O)O)NCC2=CN=C3C(=N2)C(=O)NC(=N3)N,0
+methotrexate,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)O)C(=O)O,1
+esomeprazole magnesium,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C([N-]2)C=CC(=C3)OC.CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C([N-]2)C=CC(=C3)OC.[Mg+2],0
+esomeprazole,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC,0
+methylprednisolone sodium phosphate,CC1CC2C3CCC(C3(CC(C2C4(C1=CC(=O)C=C4)C)O)C)(C(=O)COP(=O)([O-])[O-])O.[Na+].[Na+],0
+methylprednisolone acetate,CC1CC2C3CCC(C3(CC(C2C4(C1=CC(=O)C=C4)C)O)C)(C(=O)COC(=O)C)O,0
+nitrofurantoin,C1C(=O)NC(=O)N1N=CC2=CC=C(O2)[N+](=O)[O-],1
+metformin hydrochloride,CN(C)C(=N)N=C(N)N.Cl,0
+pantoprazole sodium,COC1=C(C(=NC=C1)CS(=O)C2=NC3=C([N-]2)C=CC(=C3)OC(F)F)OC.[Na+],0
+omeprazole,CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC,0
+furosemide,C1=COC(=C1)CNC2=CC(=C(C=C2C(=O)O)S(=O)(=O)N)Cl,0
+codeine,CN1CCC23C4C1CC5=C2C(=C(C=C5)OC)OC3C(C=C4)O,1
+ibuprofen,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,0
+oxycodone,CN1CCC23C4C(=O)CCC2(C1CC5=C3C(=C(C=C5)OC)O4)O,1
+oxycodone terephthalate,CN1CCC23C4C(=O)CCC2(C1CC5=C3C(=C(C=C5)OC)O4)O.CN1CCC23C4C(=O)CCC2(C1CC5=C3C(=C(C=C5)OC)O4)O.C1=CC(=CC=C1C(=O)O)C(=O)O,1
+atorvastatin,CC(C)C1=C(C(=C(N1CCC(CC(CC(=O)O)O)O)C2=CC=C(C=C2)F)C3=CC=CC=C3)C(=O)NC4=CC=CC=C4,0
+azithromycin,CCC1C(C(C(N(CC(CC(C(C(C(C(C(=O)O1)C)OC2CC(C(C(O2)C)O)(C)OC)C)OC3C(C(CC(O3)C)N(C)C)O)(C)O)C)C)C)O)(C)O,0
+paclitaxel,CC1=C2C(C(=O)C3(C(CC4C(C3C(C(C2(C)C)(CC1OC(=O)C(C(C5=CC=CC=C5)NC(=O)C6=CC=CC=C6)O)O)OC(=O)C7=CC=CC=C7)(CO4)OC(=O)C)O)C)OC(=O)C,1
+cyclophosphamide,C1CNP(=O)(OC1)N(CCCl)CCCl,1
+docetaxel,CC1=C2C(C(=O)C3(C(CC4C(C3C(C(C2(C)C)(CC1OC(=O)C(C(C5=CC=CC=C5)NC(=O)OC(C)(C)C)O)O)OC(=O)C6=CC=CC=C6)(CO4)OC(=O)C)O)C)O,1
+methotrexate sodium,CN(CC1=CN=C2C(=N1)C(=NC(=N2)N)N)C3=CC=C(C=C3)C(=O)NC(CCC(=O)[O-])C(=O)[O-].[Na+].[Na+],1
+methylprednisolone sodium succinate,CC1CC2C3CCC(C3(CC(C2C4(C1=CC(=O)C=C4)C)O)C)(C(=O)COC(=O)CCC(=O)[O-])O.[Na+],0

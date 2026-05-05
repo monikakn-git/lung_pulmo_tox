@@ -16,11 +16,11 @@ def run_verification():
         print(f"Probability of Toxicity: {res['probability']:.2%}")
         print(f"Confidence Score: {res['confidence_score']:.1f}%")
         if res['risk_category'] == "LOW RISK":
-            print("✅ TEST 1 PASSED: Model correctly identified compound as safe.")
+            print("[PASS] TEST 1: Model correctly identified compound as safe.")
         else:
-            print("❌ TEST 1 FAILED: Model misclassified safe compound.")
+            print("[FAIL] TEST 1: Model misclassified safe compound.")
     except Exception as e:
-        print(f"❌ TEST 1 ERROR: {e}")
+        print(f"[ERROR] TEST 1: {e}")
 
     # Test 2: Known Toxic Compound (Aniline)
     toxic_smiles = "C1=CC=C(C=C1)N"
@@ -32,11 +32,11 @@ def run_verification():
         print(f"Probability of Toxicity: {res['probability']:.2%}")
         print(f"Confidence Score: {res['confidence_score']:.1f}%")
         if res['risk_category'] in ["HIGH RISK", "MEDIUM RISK"]:
-            print("✅ TEST 2 PASSED: Model correctly identified compound as toxic.")
+            print("[PASS] TEST 2: Model correctly identified compound as toxic.")
         else:
-            print("❌ TEST 2 FAILED: Model misclassified toxic compound.")
+            print("[FAIL] TEST 2: Model misclassified toxic compound.")
     except Exception as e:
-        print(f"❌ TEST 2 ERROR: {e}")
+        print(f"[ERROR] TEST 2: {e}")
         
     print("\n" + "="*50)
 

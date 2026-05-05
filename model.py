@@ -145,7 +145,7 @@ def train_model():
     plt.close('all')
 
     print("-" * 32)
-    print(f"🏆 Best Model: {best_name} (AUC: {best_auc:.3f})")
+    print(f"Best Model: {best_name} (AUC: {best_auc:.3f})")
     
     # Save the best model, all models and reference data
     print("\nSaving best model and artifacts...")
